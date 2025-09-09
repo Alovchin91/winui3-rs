@@ -65,19 +65,15 @@ fn patch_winui3_features() {
         )
         .replace(
             r#"UI_Windowing = ["UI"]"#,
-            r#"UI_Windowing = ["deprecated", "UI", "windows/Graphics"]"#,
+            r#"UI_Windowing = ["UI", "windows/Graphics"]"#,
         )
         .replace(
             r#"UI_Xaml = ["UI"]"#,
             r#"UI_Xaml = ["UI", "UI_Xaml_Interop", "windows/ApplicationModel_Activation", "windows/ApplicationModel_Core", "windows/ApplicationModel_DataTransfer_DragDrop", "windows/Foundation_Collections", "windows/Graphics_Imaging", "windows/UI_Core"]"#,
         )
         .replace(
-            r#"UI_Xaml_Automation_Peers = ["UI_Xaml_Automation"]"#,
-            r#"UI_Xaml_Automation_Peers = ["deprecated", "UI_Xaml_Automation"]"#,
-        )
-        .replace(
             r#"UI_Xaml_Controls = ["UI_Xaml"]"#,
-            r#"UI_Xaml_Controls = ["deprecated", "UI_Text", "UI_Xaml", "windows/ApplicationModel_Contacts", "windows/Devices_Geolocation", "windows/Globalization_NumberFormatting", "windows/Media_Casting", "windows/Media_Playback"]"#,
+            r#"UI_Xaml_Controls = ["UI_Text", "UI_Xaml", "windows/ApplicationModel_Contacts", "windows/Devices_Geolocation", "windows/Globalization_NumberFormatting", "windows/Media_Casting", "windows/Media_Playback"]"#,
         )
         .replace(
             r#"UI_Xaml_Documents = ["UI_Xaml"]"#,

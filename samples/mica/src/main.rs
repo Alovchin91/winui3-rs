@@ -27,11 +27,9 @@ fn main() -> Result<()> {
 
     let app_window = AppWindow::Create()?;
     app_window.AssociateWithDispatcherQueue(&dispatcher_queue_controller.DispatcherQueue()?)?;
-    app_window.Closing(&TypedEventHandler::new(
-        |sender: Ref<'_, AppWindow>, _args| {
-            sender.unwrap().DispatcherQueue()?.EnqueueEventLoopExit()
-        },
-    ))?;
+    app_window.Closing(&TypedEventHandler::new(|sender: Ref<AppWindow>, _args| {
+        sender.unwrap().DispatcherQueue()?.EnqueueEventLoopExit()
+    }))?;
     app_window.SetTitle(h!("Mica Backdrop Sample"))?;
     app_window.Show()?;
 

@@ -90,19 +90,15 @@ impl IXamlType_Impl for XamlSystemBaseType_Impl {
         Err(E_NOTIMPL.into())
     }
 
-    fn AddToVector(
-        &self,
-        _instance: Ref<'_, IInspectable>,
-        _value: Ref<'_, IInspectable>,
-    ) -> Result<()> {
+    fn AddToVector(&self, _instance: Ref<IInspectable>, _value: Ref<IInspectable>) -> Result<()> {
         Err(E_NOTIMPL.into())
     }
 
     fn AddToMap(
         &self,
-        _instance: Ref<'_, IInspectable>,
-        _key: Ref<'_, IInspectable>,
-        _value: Ref<'_, IInspectable>,
+        _instance: Ref<IInspectable>,
+        _key: Ref<IInspectable>,
+        _value: Ref<IInspectable>,
     ) -> Result<()> {
         Err(E_NOTIMPL.into())
     }
@@ -205,19 +201,15 @@ impl<T: Activatable> IXamlType_Impl for XamlCustomType_Impl<'_, T> {
         Err(Error::empty())
     }
 
-    fn AddToVector(
-        &self,
-        _instance: Ref<'_, IInspectable>,
-        _value: Ref<'_, IInspectable>,
-    ) -> Result<()> {
+    fn AddToVector(&self, _instance: Ref<IInspectable>, _value: Ref<IInspectable>) -> Result<()> {
         Ok(())
     }
 
     fn AddToMap(
         &self,
-        _instance: Ref<'_, IInspectable>,
-        _key: Ref<'_, IInspectable>,
-        _value: Ref<'_, IInspectable>,
+        _instance: Ref<IInspectable>,
+        _key: Ref<IInspectable>,
+        _value: Ref<IInspectable>,
     ) -> Result<()> {
         Ok(())
     }

@@ -55,7 +55,7 @@ impl<T: XamlAppOverrides> XamlApp<T> {
 }
 
 impl<T: XamlAppOverrides> IApplicationOverrides_Impl for XamlApp_Impl<T> {
-    fn OnLaunched(&self, args: Ref<'_, LaunchActivatedEventArgs>) -> Result<()> {
+    fn OnLaunched(&self, args: Ref<LaunchActivatedEventArgs>) -> Result<()> {
         let inspectable: InterfaceRef<'_, IInspectable> = self.as_interface_ref();
         let base = inspectable.cast()?;
         self.inner.OnLaunched(&base, args.as_ref())

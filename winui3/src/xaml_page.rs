@@ -50,19 +50,19 @@ impl<T: XamlPageOverrides> XamlPage<T> {
 }
 
 impl<T: XamlPageOverrides> IPageOverrides_Impl for XamlPage_Impl<T> {
-    fn OnNavigatedFrom(&self, args: Ref<'_, NavigationEventArgs>) -> Result<()> {
+    fn OnNavigatedFrom(&self, args: Ref<NavigationEventArgs>) -> Result<()> {
         let inspectable: InterfaceRef<'_, IInspectable> = self.as_interface_ref();
         let base = inspectable.cast()?;
         self.inner.OnNavigatedFrom(&base, args.as_ref())
     }
 
-    fn OnNavigatedTo(&self, args: Ref<'_, NavigationEventArgs>) -> Result<()> {
+    fn OnNavigatedTo(&self, args: Ref<NavigationEventArgs>) -> Result<()> {
         let inspectable: InterfaceRef<'_, IInspectable> = self.as_interface_ref();
         let base = inspectable.cast()?;
         self.inner.OnNavigatedTo(&base, args.as_ref())
     }
 
-    fn OnNavigatingFrom(&self, args: Ref<'_, NavigatingCancelEventArgs>) -> Result<()> {
+    fn OnNavigatingFrom(&self, args: Ref<NavigatingCancelEventArgs>) -> Result<()> {
         let inspectable: InterfaceRef<'_, IInspectable> = self.as_interface_ref();
         let base = inspectable.cast()?;
         self.inner.OnNavigatingFrom(&base, args.as_ref())

@@ -10,10 +10,10 @@ default-members = [
 ]
 
 [workspace.dependencies]
-windows = "0.61.3"
-windows-bindgen = "0.62.1"
-windows-collections = "0.2.0"
-windows-core = "0.61.2"
-windows-future = "0.2.1"
-windows-numerics = "0.2.0"
+windows = "0.62.0"
+windows-bindgen = "0.63.0"
+windows-collections = "0.3.0"
+windows-core = "0.62.0"
+windows-future = "0.3.0"
+windows-numerics = "0.3.0"
 winui3 = { path = "winui3" }
