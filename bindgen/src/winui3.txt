@@ -7,6 +7,7 @@
     bindgen/winmd/Microsoft.UI.Xaml.winmd
     bindgen/winmd/Microsoft.Web.WebView2.Core.winmd
     bindgen/winmd/Microsoft.Windows.ApplicationModel.Resources.winmd
+    bindgen/winmd/Microsoft.Windows.Storage.Pickers.winmd
 
 --no-deps
 --reference
@@ -45,6 +46,7 @@
     Microsoft.Graphics
     Microsoft.UI
     Microsoft.Windows.ApplicationModel.Resources
+    Microsoft.Windows.Storage.Pickers
 
 // WebView2 is a big part of the API surface
     !Microsoft.UI.Xaml.Automation.Peers.IWebView2*

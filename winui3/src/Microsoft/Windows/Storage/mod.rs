@@ -8,7 +8,5 @@
     clippy::all
 )]
 
-#[cfg(feature = "Windows_ApplicationModel")]
-pub mod ApplicationModel;
-#[cfg(feature = "Windows_Storage")]
-pub mod Storage;
+#[cfg(feature = "Windows_Storage_Pickers")]
+pub mod Pickers;
