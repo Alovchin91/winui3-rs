@@ -8,6 +8,7 @@ rust-version = "1.82"
 windows-collections.workspace = true
 windows-core.workspace = true
 windows-future.workspace = true
+windows-link.workspace = true
 windows-numerics.workspace = true
 
 [dependencies.windows]
@@ -22,6 +23,7 @@ features = [
 [features]
 default = []
 Foundation = ["windows/Foundation"]
+MsixDynamicDependency = ["windows/Win32_Security"]
 XamlApp = [
     "UI_Xaml",
     "UI_Xaml_Interop",

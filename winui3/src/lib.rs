@@ -1,12 +1,12 @@
 pub mod bootstrap;
 
+pub mod interop;
+
 #[rustfmt::skip]
 pub mod Microsoft;
 
 #[rustfmt::skip]
 pub mod Windows;
-
-pub mod interop;
 
 #[cfg(feature = "XamlApp")]
 mod xaml_app;

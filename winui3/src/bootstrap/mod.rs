@@ -1,15 +1,33 @@
-use std::{fmt, os::windows::ffi::OsStringExt, sync::OnceLock};
+#[cfg(feature = "MsixDynamicDependency")]
+#[rustfmt::skip]
+mod dynamic_dependency;
+
+use std::{fmt, os::windows::ffi::OsStringExt};
 use windows::Win32::{
     Foundation::{ERROR_INSUFFICIENT_BUFFER, ERROR_SUCCESS},
-    Storage::Packaging::Appx::{
-        AddPackageDependency, AddPackageDependencyOptions_None,
-        CreatePackageDependencyOptions_None, GetPackagePathByFullName,
-        PackageDependencyLifetimeKind_Process, PackageDependencyProcessorArchitectures_None,
-        RemovePackageDependency, TryCreatePackageDependency, PACKAGEDEPENDENCY_CONTEXT,
-        PACKAGE_VERSION, PACKAGE_VERSION_0,
-    },
+    Storage::Packaging::Appx::{GetPackagePathByFullName, PACKAGE_VERSION, PACKAGE_VERSION_0},
 };
 use windows_core::{h, Result, HSTRING, PWSTR};
+
+#[cfg(feature = "MsixDynamicDependency")]
+use dynamic_dependency::{
+    MddAddPackageDependency as AddPackageDependency,
+    MddAddPackageDependencyOptions_None as AddPackageDependencyOptions_None,
+    MddCreatePackageDependencyOptions_None as CreatePackageDependencyOptions_None,
+    MddDeletePackageDependency as DeletePackageDependency,
+    MddPackageDependencyLifetimeKind_Process as PackageDependencyLifetimeKind_Process,
+    MddPackageDependencyProcessorArchitectures_None as PackageDependencyProcessorArchitectures_None,
+    MddRemovePackageDependency as RemovePackageDependency,
+    MddTryCreatePackageDependency as TryCreatePackageDependency,
+    MDD_PACKAGEDEPENDENCY_CONTEXT as PACKAGEDEPENDENCY_CONTEXT,
+};
+#[cfg(not(feature = "MsixDynamicDependency"))]
+use windows::Win32::Storage::Packaging::Appx::{
+    AddPackageDependency, AddPackageDependencyOptions_None, CreatePackageDependencyOptions_None,
+    DeletePackageDependency, PackageDependencyLifetimeKind_Process,
+    PackageDependencyProcessorArchitectures_None, RemovePackageDependency,
+    TryCreatePackageDependency, PACKAGEDEPENDENCY_CONTEXT,
+};
 
 const WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V1_5: u64 = 0x1389003A01C00000_u64;
 const WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME_V1_5: &HSTRING =
@@ -35,7 +53,7 @@ pub enum WindowsAppSDKVersion {
 }
 
 impl WindowsAppSDKVersion {
-    const fn get_runtime_version(&self) -> u64 {
+    pub const fn get_runtime_version(&self) -> u64 {
         match self {
             WindowsAppSDKVersion::V1_5 => WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V1_5,
             WindowsAppSDKVersion::V1_6 => WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V1_6,
@@ -44,7 +62,7 @@ impl WindowsAppSDKVersion {
         }
     }
 
-    const fn get_package_family_name(&self) -> &'static HSTRING {
+    pub const fn get_package_family_name(&self) -> &'static HSTRING {
         match self {
             WindowsAppSDKVersion::V1_5 => {
                 WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME_V1_5
@@ -62,13 +80,8 @@ impl WindowsAppSDKVersion {
     }
 }
 
-#[derive(Debug)]
-struct PackageDependencyID(PWSTR);
-
-unsafe impl Sync for PackageDependencyID {}
-unsafe impl Send for PackageDependencyID {}
-
 pub struct PackageDependency {
+    dependency_id: PWSTR,
     ctx: PACKAGEDEPENDENCY_CONTEXT,
     package_full_name: HSTRING,
 }
@@ -79,39 +92,29 @@ impl PackageDependency {
     }
 
     pub fn initialize_version(version: WindowsAppSDKVersion) -> Result<Self> {
-        static RUNTIME_PACKAGE_FRAMEWORK_DEPENDENCY_ID: OnceLock<PackageDependencyID> =
-            OnceLock::new();
-
-        let dependency_id = match RUNTIME_PACKAGE_FRAMEWORK_DEPENDENCY_ID.get() {
-            Some(dependency_id) => dependency_id,
-            None => {
-                let min_version = PACKAGE_VERSION {
-                    Anonymous: PACKAGE_VERSION_0 {
-                        Version: version.get_runtime_version(),
-                    },
-                };
-                let dependency_id = unsafe {
-                    TryCreatePackageDependency(
-                        windows::Win32::Security::PSID::default(),
-                        version.get_package_family_name(),
-                        min_version,
-                        PackageDependencyProcessorArchitectures_None,
-                        PackageDependencyLifetimeKind_Process,
-                        None,
-                        CreatePackageDependencyOptions_None,
-                    )
-                }?;
-                RUNTIME_PACKAGE_FRAMEWORK_DEPENDENCY_ID
-                    .get_or_init(|| PackageDependencyID(dependency_id))
-            }
+        let min_version = PACKAGE_VERSION {
+            Anonymous: PACKAGE_VERSION_0 {
+                Version: version.get_runtime_version(),
+            },
         };
+        let dependency_id = unsafe {
+            TryCreatePackageDependency(
+                windows::Win32::Security::PSID::default(),
+                version.get_package_family_name(),
+                min_version,
+                PackageDependencyProcessorArchitectures_None,
+                PackageDependencyLifetimeKind_Process,
+                None,
+                CreatePackageDependencyOptions_None,
+            )
+        }?;
 
         let mut ctx = PACKAGEDEPENDENCY_CONTEXT::default();
         let mut package_full_name = PWSTR::null();
 
         unsafe {
             AddPackageDependency(
-                dependency_id.0,
+                dependency_id,
                 0,
                 AddPackageDependencyOptions_None,
                 &mut ctx,
@@ -120,6 +123,7 @@ impl PackageDependency {
         }?;
 
         Ok(Self {
+            dependency_id,
             ctx,
             package_full_name: unsafe { package_full_name.to_hstring() },
         })
@@ -153,7 +157,10 @@ impl PackageDependency {
     }
 
     fn uninitialize(&self) -> Result<()> {
-        unsafe { RemovePackageDependency(self.ctx) }
+        unsafe {
+            RemovePackageDependency(self.ctx)?;
+            DeletePackageDependency(self.dependency_id)
+        }
     }
 }
 
