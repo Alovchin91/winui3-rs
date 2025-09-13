@@ -1,9 +1,13 @@
-use std::{fmt, sync::OnceLock};
-use windows::Win32::Storage::Packaging::Appx::{
-    AddPackageDependency, AddPackageDependencyOptions_None, CreatePackageDependencyOptions_None,
-    PackageDependencyLifetimeKind_Process, PackageDependencyProcessorArchitectures_None,
-    RemovePackageDependency, TryCreatePackageDependency, PACKAGEDEPENDENCY_CONTEXT,
-    PACKAGE_VERSION, PACKAGE_VERSION_0,
+use std::{fmt, os::windows::ffi::OsStringExt, sync::OnceLock};
+use windows::Win32::{
+    Foundation::{ERROR_INSUFFICIENT_BUFFER, ERROR_SUCCESS},
+    Storage::Packaging::Appx::{
+        AddPackageDependency, AddPackageDependencyOptions_None,
+        CreatePackageDependencyOptions_None, GetPackagePathByFullName,
+        PackageDependencyLifetimeKind_Process, PackageDependencyProcessorArchitectures_None,
+        RemovePackageDependency, TryCreatePackageDependency, PACKAGEDEPENDENCY_CONTEXT,
+        PACKAGE_VERSION, PACKAGE_VERSION_0,
+    },
 };
 use windows_core::{h, Result, HSTRING, PWSTR};
 
@@ -119,6 +123,33 @@ impl PackageDependency {
             ctx,
             package_full_name: unsafe { package_full_name.to_hstring() },
         })
+    }
+
+    pub fn get_package_full_name(&self) -> &HSTRING {
+        &self.package_full_name
+    }
+
+    pub fn get_package_path(&self) -> Result<std::path::PathBuf> {
+        let mut path_length = 0_u32;
+        match unsafe {
+            GetPackagePathByFullName(&self.package_full_name, &raw mut path_length, None)
+        } {
+            ERROR_INSUFFICIENT_BUFFER => (),
+            ERROR_SUCCESS => (),
+            err => return Err(err.into()),
+        }
+        let mut path_vec = vec![0_u16; path_length as usize];
+        unsafe {
+            GetPackagePathByFullName(
+                &self.package_full_name,
+                &raw mut path_length,
+                Some(PWSTR::from_raw(path_vec.as_mut_ptr())),
+            )
+        }
+        .ok()?;
+        // According to the documentation, pathLength includes the null-terminator.
+        let path = std::ffi::OsString::from_wide(&path_vec[..path_length as usize - 1]);
+        Ok(path.into())
     }
 
     fn uninitialize(&self) -> Result<()> {
