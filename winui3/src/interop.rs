@@ -19,50 +19,40 @@ struct InteropImpl {
 
 #[cfg(feature = "UI")]
 unsafe fn EnsureInteropImplLoaded() -> windows_core::Result<&'static InteropImpl> {
-    static S_IMPL: core::sync::atomic::AtomicPtr<InteropImpl> =
-        core::sync::atomic::AtomicPtr::new(core::ptr::null_mut());
+    static S_IMPL: std::sync::OnceLock<InteropImpl> = std::sync::OnceLock::new();
 
-    let s_impl = {
-        let value = S_IMPL.load(core::sync::atomic::Ordering::Acquire);
-        if value.is_null() {
-            unsafe {
-                let module = windows::Win32::System::LibraryLoader::GetModuleHandleW(
-                    windows_core::w!("Microsoft.Internal.FrameworkUdk.dll"),
-                )
-                .or_else(|_| {
-                    windows::Win32::System::LibraryLoader::LoadLibraryW(windows_core::w!(
-                        "Microsoft.Internal.FrameworkUdk.dll"
-                    ))
-                })?;
-                if module.is_invalid() {
-                    return Err(windows::Win32::Foundation::ERROR_INVALID_HANDLE.into());
-                }
-                let pfnGetWindowIdFromWindow =
-                    windows::Win32::System::LibraryLoader::GetProcAddress(
-                        module,
-                        windows_core::s!("Windowing_GetWindowIdFromWindow"),
-                    );
-                let pfnGetWindowFromWindowId =
-                    windows::Win32::System::LibraryLoader::GetProcAddress(
-                        module,
-                        windows_core::s!("Windowing_GetWindowFromWindowId"),
-                    );
-                #[allow(clippy::missing_transmute_annotations)]
-                let mut s_impl = InteropImpl {
-                    pfnGetWindowFromWindowId: core::mem::transmute(pfnGetWindowFromWindowId),
-                    pfnGetWindowIdFromWindow: core::mem::transmute(pfnGetWindowIdFromWindow),
-                };
-                S_IMPL.store(&mut s_impl, core::sync::atomic::Ordering::Release);
-                S_IMPL.load(core::sync::atomic::Ordering::Relaxed)
-            }
-        } else {
-            value
+    if let Some(value) = S_IMPL.get() {
+        return Ok(value);
+    }
+
+    let s_impl = unsafe {
+        let module = windows::Win32::System::LibraryLoader::GetModuleHandleW(windows_core::w!(
+            "Microsoft.Internal.FrameworkUdk.dll"
+        ))
+        .or_else(|_| {
+            windows::Win32::System::LibraryLoader::LoadLibraryW(windows_core::w!(
+                "Microsoft.Internal.FrameworkUdk.dll"
+            ))
+        })?;
+        if module.is_invalid() {
+            return Err(windows::Win32::Foundation::ERROR_INVALID_HANDLE.into());
+        }
+        let pfnGetWindowIdFromWindow = windows::Win32::System::LibraryLoader::GetProcAddress(
+            module,
+            windows_core::s!("Windowing_GetWindowIdFromWindow"),
+        );
+        let pfnGetWindowFromWindowId = windows::Win32::System::LibraryLoader::GetProcAddress(
+            module,
+            windows_core::s!("Windowing_GetWindowFromWindowId"),
+        );
+        #[allow(clippy::missing_transmute_annotations)]
+        InteropImpl {
+            pfnGetWindowFromWindowId: core::mem::transmute(pfnGetWindowFromWindowId),
+            pfnGetWindowIdFromWindow: core::mem::transmute(pfnGetWindowIdFromWindow),
         }
     };
 
-    s_impl
-        .as_ref()
-        .ok_or_else(|| windows_core::Error::from(windows::Win32::Foundation::E_POINTER))
+    Ok(S_IMPL.get_or_init(|| s_impl))
 }
 
 #[cfg(feature = "UI")]
