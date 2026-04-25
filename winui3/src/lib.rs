@@ -8,6 +8,9 @@ pub mod Microsoft;
 #[rustfmt::skip]
 pub mod Windows;
 
+#[cfg(feature = "Foundation")]
+mod reference;
+
 #[cfg(feature = "XamlApp")]
 mod xaml_app;
 
@@ -16,6 +19,9 @@ mod xaml_page;
 
 #[cfg(feature = "XamlApp_Navigation")]
 mod xaml_types;
+
+#[cfg(feature = "Foundation")]
+pub use reference::Reference;
 
 #[cfg(feature = "XamlApp")]
 pub use xaml_app::{XamlApp, XamlAppOverrides};

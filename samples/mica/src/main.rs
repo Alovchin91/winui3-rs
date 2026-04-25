@@ -1,5 +1,5 @@
 use windows::{
-    core::{h, Interface, Ref, Result},
+    core::{Interface, Ref, Result},
     Foundation::TypedEventHandler,
     Win32::System::WinRT::Composition::ICompositorDesktopInterop,
     UI::Composition::{Compositor, Desktop::DesktopWindowTarget},
@@ -8,9 +8,10 @@ use windows::{
 use winui3::{
     bootstrap::PackageDependency,
     Microsoft::UI::{
-        Composition::SystemBackdrops::MicaController, Dispatching::DispatcherQueueController,
-        Windowing::AppWindow,
+        Colors, Composition::SystemBackdrops::MicaController,
+        Dispatching::DispatcherQueueController, Windowing::AppWindow,
     },
+    Reference,
 };
 
 fn main() -> Result<()> {
@@ -30,7 +31,12 @@ fn main() -> Result<()> {
     app_window.Closing(&TypedEventHandler::new(|sender: Ref<AppWindow>, _args| {
         sender.unwrap().DispatcherQueue()?.EnqueueEventLoopExit()
     }))?;
-    app_window.SetTitle(h!("Mica Backdrop Sample"))?;
+
+    let title_bar = app_window.TitleBar()?;
+    title_bar.SetExtendsContentIntoTitleBar(true)?;
+    title_bar.SetButtonBackgroundColor(Reference::new(Colors::Transparent()?))?;
+    title_bar.SetButtonInactiveBackgroundColor(Reference::new(Colors::Transparent()?))?;
+
     app_window.Show()?;
 
     let target = create_window_target(&app_window, &compositor)?;
@@ -48,5 +54,5 @@ fn create_window_target(
 ) -> Result<DesktopWindowTarget> {
     let desktop_window_target: ICompositorDesktopInterop = compositor.cast()?;
     let hwnd = unsafe { winui3::interop::GetWindowFromWindowId(window.Id()?)? };
-    unsafe { desktop_window_target.CreateDesktopWindowTarget(hwnd, true) }
+    unsafe { desktop_window_target.CreateDesktopWindowTarget(hwnd, false) }
 }
