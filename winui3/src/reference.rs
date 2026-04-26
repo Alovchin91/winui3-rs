@@ -4,6 +4,18 @@ use windows::{
 };
 use windows_core::{implement, RuntimeType};
 
+/// Generic `IReference<T>` implementation for value types that
+/// `windows::Foundation::PropertyValue` can't produce.
+///
+/// For primitive types — `bool`, the integer types, `f32`/`f64`, `HSTRING`,
+/// etc. — use `PropertyValue`'s static factory methods (`CreateBoolean`,
+/// `CreateUInt32`, `CreateString`, …) instead. `Reference<T>` is the escape
+/// hatch for everything `PropertyValue` doesn't support, e.g. `IReference<Color>`
+/// for `AppWindowTitleBar::SetButtonBackgroundColor`.
+///
+/// `IReference<T>` inherits `IPropertyValue`, so this type provides both
+/// vtables; the `IPropertyValue` getters all return `E_NOTIMPL` —
+/// `Reference<T>` is the complement to `PropertyValue`, not the general case.
 #[implement(IReference<T>)]
 pub struct Reference<T>
 where
