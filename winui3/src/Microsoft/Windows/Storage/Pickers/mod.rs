@@ -121,6 +121,132 @@ impl FileOpenPicker {
             .and_then(|| windows_core::Type::from_abi(result__))
         }
     }
+    pub fn Title(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).Title)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetTitle(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetTitle)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn SettingsIdentifier(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SettingsIdentifier)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSettingsIdentifier(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSettingsIdentifier)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn FileTypeChoices(
+        &self,
+    ) -> windows_core::Result<
+        windows_collections::IMap<
+            windows_core::HSTRING,
+            windows_collections::IVector<windows_core::HSTRING>,
+        >,
+    > {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).FileTypeChoices)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn InitialFileTypeIndex(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).InitialFileTypeIndex)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn SetInitialFileTypeIndex(&self, value: i32) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetInitialFileTypeIndex)(
+                windows_core::Interface::as_raw(this),
+                value,
+            )
+            .ok()
+        }
+    }
+    pub fn SuggestedFolder(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SuggestedFolder)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSuggestedFolder(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSuggestedFolder)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn SuggestedStartFolder(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SuggestedStartFolder)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSuggestedStartFolder(
+        &self,
+        value: &windows_core::HSTRING,
+    ) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileOpenPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSuggestedStartFolder)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
     #[cfg(feature = "UI")]
     pub fn CreateInstance(
         windowid: super::super::super::UI::WindowId,
@@ -304,6 +430,114 @@ impl FileSavePicker {
             .and_then(|| windows_core::Type::from_abi(result__))
         }
     }
+    pub fn Title(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).Title)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetTitle(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetTitle)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn SettingsIdentifier(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SettingsIdentifier)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSettingsIdentifier(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSettingsIdentifier)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn InitialFileTypeIndex(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).InitialFileTypeIndex)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn SetInitialFileTypeIndex(&self, value: i32) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetInitialFileTypeIndex)(
+                windows_core::Interface::as_raw(this),
+                value,
+            )
+            .ok()
+        }
+    }
+    pub fn SuggestedStartFolder(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SuggestedStartFolder)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSuggestedStartFolder(
+        &self,
+        value: &windows_core::HSTRING,
+    ) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSuggestedStartFolder)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn ShowOverwritePrompt(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).ShowOverwritePrompt)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn SetShowOverwritePrompt(&self, value: bool) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFileSavePicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetShowOverwritePrompt)(
+                windows_core::Interface::as_raw(this),
+                value,
+            )
+            .ok()
+        }
+    }
     #[cfg(feature = "UI")]
     pub fn CreateInstance(
         windowid: super::super::super::UI::WindowId,
@@ -418,6 +652,108 @@ impl FolderPicker {
         unsafe {
             let mut result__ = core::mem::zeroed();
             (windows_core::Interface::vtable(this).PickSingleFolderAsync)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn Title(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).Title)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetTitle(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetTitle)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn SettingsIdentifier(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SettingsIdentifier)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSettingsIdentifier(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSettingsIdentifier)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn SuggestedFolder(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SuggestedFolder)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSuggestedFolder(&self, value: &windows_core::HSTRING) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSuggestedFolder)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn SuggestedStartFolder(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).SuggestedStartFolder)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn SetSuggestedStartFolder(
+        &self,
+        value: &windows_core::HSTRING,
+    ) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetSuggestedStartFolder)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(value),
+            )
+            .ok()
+        }
+    }
+    pub fn PickMultipleFoldersAsync(
+        &self,
+    ) -> windows_core::Result<
+        windows_future::IAsyncOperation<windows_collections::IVectorView<PickFolderResult>>,
+    > {
+        let this = &windows_core::Interface::cast::<IFolderPicker2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).PickMultipleFoldersAsync)(
                 windows_core::Interface::as_raw(this),
                 &mut result__,
             )
@@ -700,6 +1036,284 @@ pub struct IFileOpenPicker_Vtbl {
     pub PickMultipleFilesAsync: unsafe extern "system" fn(
         *mut core::ffi::c_void,
         *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
+    IFileOpenPicker2,
+    IFileOpenPicker2_Vtbl,
+    0xb77a4106_895b_5af9_91c3_93e5b058706c
+);
+impl windows_core::RuntimeType for IFileOpenPicker2 {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for IFileOpenPicker2 {
+    const NAME: &'static str = "Microsoft.Windows.Storage.Pickers.IFileOpenPicker2";
+}
+pub trait IFileOpenPicker2_Impl: windows_core::IUnknownImpl {
+    fn Title(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetTitle(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn SettingsIdentifier(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSettingsIdentifier(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn FileTypeChoices(
+        &self,
+    ) -> windows_core::Result<
+        windows_collections::IMap<
+            windows_core::HSTRING,
+            windows_collections::IVector<windows_core::HSTRING>,
+        >,
+    >;
+    fn InitialFileTypeIndex(&self) -> windows_core::Result<i32>;
+    fn SetInitialFileTypeIndex(&self, value: i32) -> windows_core::Result<()>;
+    fn SuggestedFolder(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSuggestedFolder(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn SuggestedStartFolder(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSuggestedStartFolder(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+}
+impl IFileOpenPicker2_Vtbl {
+    pub const fn new<Identity: IFileOpenPicker2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn Title<Identity: IFileOpenPicker2_Impl, const OFFSET: isize>(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileOpenPicker2_Impl::Title(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetTitle<Identity: IFileOpenPicker2_Impl, const OFFSET: isize>(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileOpenPicker2_Impl::SetTitle(this, core::mem::transmute(&value)).into()
+            }
+        }
+        unsafe extern "system" fn SettingsIdentifier<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileOpenPicker2_Impl::SettingsIdentifier(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSettingsIdentifier<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileOpenPicker2_Impl::SetSettingsIdentifier(this, core::mem::transmute(&value))
+                    .into()
+            }
+        }
+        unsafe extern "system" fn FileTypeChoices<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileOpenPicker2_Impl::FileTypeChoices(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn InitialFileTypeIndex<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut i32,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileOpenPicker2_Impl::InitialFileTypeIndex(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetInitialFileTypeIndex<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: i32,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileOpenPicker2_Impl::SetInitialFileTypeIndex(this, value).into()
+            }
+        }
+        unsafe extern "system" fn SuggestedFolder<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileOpenPicker2_Impl::SuggestedFolder(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSuggestedFolder<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileOpenPicker2_Impl::SetSuggestedFolder(this, core::mem::transmute(&value)).into()
+            }
+        }
+        unsafe extern "system" fn SuggestedStartFolder<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileOpenPicker2_Impl::SuggestedStartFolder(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSuggestedStartFolder<
+            Identity: IFileOpenPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileOpenPicker2_Impl::SetSuggestedStartFolder(this, core::mem::transmute(&value))
+                    .into()
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<Identity, IFileOpenPicker2, OFFSET>(),
+            Title: Title::<Identity, OFFSET>,
+            SetTitle: SetTitle::<Identity, OFFSET>,
+            SettingsIdentifier: SettingsIdentifier::<Identity, OFFSET>,
+            SetSettingsIdentifier: SetSettingsIdentifier::<Identity, OFFSET>,
+            FileTypeChoices: FileTypeChoices::<Identity, OFFSET>,
+            InitialFileTypeIndex: InitialFileTypeIndex::<Identity, OFFSET>,
+            SetInitialFileTypeIndex: SetInitialFileTypeIndex::<Identity, OFFSET>,
+            SuggestedFolder: SuggestedFolder::<Identity, OFFSET>,
+            SetSuggestedFolder: SetSuggestedFolder::<Identity, OFFSET>,
+            SuggestedStartFolder: SuggestedStartFolder::<Identity, OFFSET>,
+            SetSuggestedStartFolder: SetSuggestedStartFolder::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IFileOpenPicker2 as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IFileOpenPicker2_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub Title: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetTitle: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SettingsIdentifier: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSettingsIdentifier: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub FileTypeChoices: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub InitialFileTypeIndex:
+        unsafe extern "system" fn(*mut core::ffi::c_void, *mut i32) -> windows_core::HRESULT,
+    pub SetInitialFileTypeIndex:
+        unsafe extern "system" fn(*mut core::ffi::c_void, i32) -> windows_core::HRESULT,
+    pub SuggestedFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSuggestedFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SuggestedStartFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSuggestedStartFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
     ) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
@@ -1089,6 +1703,246 @@ pub struct IFileSavePicker_Vtbl {
     ) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
+    IFileSavePicker2,
+    IFileSavePicker2_Vtbl,
+    0xa18feba7_3fbc_5ecb_9693_ba876a9c0c27
+);
+impl windows_core::RuntimeType for IFileSavePicker2 {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for IFileSavePicker2 {
+    const NAME: &'static str = "Microsoft.Windows.Storage.Pickers.IFileSavePicker2";
+}
+pub trait IFileSavePicker2_Impl: windows_core::IUnknownImpl {
+    fn Title(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetTitle(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn SettingsIdentifier(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSettingsIdentifier(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn InitialFileTypeIndex(&self) -> windows_core::Result<i32>;
+    fn SetInitialFileTypeIndex(&self, value: i32) -> windows_core::Result<()>;
+    fn SuggestedStartFolder(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSuggestedStartFolder(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn ShowOverwritePrompt(&self) -> windows_core::Result<bool>;
+    fn SetShowOverwritePrompt(&self, value: bool) -> windows_core::Result<()>;
+}
+impl IFileSavePicker2_Vtbl {
+    pub const fn new<Identity: IFileSavePicker2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn Title<Identity: IFileSavePicker2_Impl, const OFFSET: isize>(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileSavePicker2_Impl::Title(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetTitle<Identity: IFileSavePicker2_Impl, const OFFSET: isize>(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileSavePicker2_Impl::SetTitle(this, core::mem::transmute(&value)).into()
+            }
+        }
+        unsafe extern "system" fn SettingsIdentifier<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileSavePicker2_Impl::SettingsIdentifier(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSettingsIdentifier<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileSavePicker2_Impl::SetSettingsIdentifier(this, core::mem::transmute(&value))
+                    .into()
+            }
+        }
+        unsafe extern "system" fn InitialFileTypeIndex<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut i32,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileSavePicker2_Impl::InitialFileTypeIndex(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetInitialFileTypeIndex<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: i32,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileSavePicker2_Impl::SetInitialFileTypeIndex(this, value).into()
+            }
+        }
+        unsafe extern "system" fn SuggestedStartFolder<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileSavePicker2_Impl::SuggestedStartFolder(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSuggestedStartFolder<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileSavePicker2_Impl::SetSuggestedStartFolder(this, core::mem::transmute(&value))
+                    .into()
+            }
+        }
+        unsafe extern "system" fn ShowOverwritePrompt<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut bool,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFileSavePicker2_Impl::ShowOverwritePrompt(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetShowOverwritePrompt<
+            Identity: IFileSavePicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: bool,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFileSavePicker2_Impl::SetShowOverwritePrompt(this, value).into()
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<Identity, IFileSavePicker2, OFFSET>(),
+            Title: Title::<Identity, OFFSET>,
+            SetTitle: SetTitle::<Identity, OFFSET>,
+            SettingsIdentifier: SettingsIdentifier::<Identity, OFFSET>,
+            SetSettingsIdentifier: SetSettingsIdentifier::<Identity, OFFSET>,
+            InitialFileTypeIndex: InitialFileTypeIndex::<Identity, OFFSET>,
+            SetInitialFileTypeIndex: SetInitialFileTypeIndex::<Identity, OFFSET>,
+            SuggestedStartFolder: SuggestedStartFolder::<Identity, OFFSET>,
+            SetSuggestedStartFolder: SetSuggestedStartFolder::<Identity, OFFSET>,
+            ShowOverwritePrompt: ShowOverwritePrompt::<Identity, OFFSET>,
+            SetShowOverwritePrompt: SetShowOverwritePrompt::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IFileSavePicker2 as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IFileSavePicker2_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub Title: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetTitle: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SettingsIdentifier: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSettingsIdentifier: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub InitialFileTypeIndex:
+        unsafe extern "system" fn(*mut core::ffi::c_void, *mut i32) -> windows_core::HRESULT,
+    pub SetInitialFileTypeIndex:
+        unsafe extern "system" fn(*mut core::ffi::c_void, i32) -> windows_core::HRESULT,
+    pub SuggestedStartFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSuggestedStartFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub ShowOverwritePrompt:
+        unsafe extern "system" fn(*mut core::ffi::c_void, *mut bool) -> windows_core::HRESULT,
+    pub SetShowOverwritePrompt:
+        unsafe extern "system" fn(*mut core::ffi::c_void, bool) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
     IFileSavePickerFactory,
     IFileSavePickerFactory_Vtbl,
     0x2e256696_30b6_5a05_a8f5_c752db6dd268
@@ -1336,6 +2190,241 @@ pub struct IFolderPicker_Vtbl {
         *mut core::ffi::c_void,
     ) -> windows_core::HRESULT,
     pub PickSingleFolderAsync: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
+    IFolderPicker2,
+    IFolderPicker2_Vtbl,
+    0x12647ff3_8cca_5d1f_9ee4_ee4195ee155d
+);
+impl windows_core::RuntimeType for IFolderPicker2 {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for IFolderPicker2 {
+    const NAME: &'static str = "Microsoft.Windows.Storage.Pickers.IFolderPicker2";
+}
+pub trait IFolderPicker2_Impl: windows_core::IUnknownImpl {
+    fn Title(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetTitle(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn SettingsIdentifier(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSettingsIdentifier(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn SuggestedFolder(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSuggestedFolder(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn SuggestedStartFolder(&self) -> windows_core::Result<windows_core::HSTRING>;
+    fn SetSuggestedStartFolder(&self, value: &windows_core::HSTRING) -> windows_core::Result<()>;
+    fn PickMultipleFoldersAsync(
+        &self,
+    ) -> windows_core::Result<
+        windows_future::IAsyncOperation<windows_collections::IVectorView<PickFolderResult>>,
+    >;
+}
+impl IFolderPicker2_Vtbl {
+    pub const fn new<Identity: IFolderPicker2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn Title<Identity: IFolderPicker2_Impl, const OFFSET: isize>(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFolderPicker2_Impl::Title(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetTitle<Identity: IFolderPicker2_Impl, const OFFSET: isize>(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFolderPicker2_Impl::SetTitle(this, core::mem::transmute(&value)).into()
+            }
+        }
+        unsafe extern "system" fn SettingsIdentifier<
+            Identity: IFolderPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFolderPicker2_Impl::SettingsIdentifier(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSettingsIdentifier<
+            Identity: IFolderPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFolderPicker2_Impl::SetSettingsIdentifier(this, core::mem::transmute(&value))
+                    .into()
+            }
+        }
+        unsafe extern "system" fn SuggestedFolder<
+            Identity: IFolderPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFolderPicker2_Impl::SuggestedFolder(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSuggestedFolder<
+            Identity: IFolderPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFolderPicker2_Impl::SetSuggestedFolder(this, core::mem::transmute(&value)).into()
+            }
+        }
+        unsafe extern "system" fn SuggestedStartFolder<
+            Identity: IFolderPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFolderPicker2_Impl::SuggestedStartFolder(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetSuggestedStartFolder<
+            Identity: IFolderPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IFolderPicker2_Impl::SetSuggestedStartFolder(this, core::mem::transmute(&value))
+                    .into()
+            }
+        }
+        unsafe extern "system" fn PickMultipleFoldersAsync<
+            Identity: IFolderPicker2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IFolderPicker2_Impl::PickMultipleFoldersAsync(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<Identity, IFolderPicker2, OFFSET>(),
+            Title: Title::<Identity, OFFSET>,
+            SetTitle: SetTitle::<Identity, OFFSET>,
+            SettingsIdentifier: SettingsIdentifier::<Identity, OFFSET>,
+            SetSettingsIdentifier: SetSettingsIdentifier::<Identity, OFFSET>,
+            SuggestedFolder: SuggestedFolder::<Identity, OFFSET>,
+            SetSuggestedFolder: SetSuggestedFolder::<Identity, OFFSET>,
+            SuggestedStartFolder: SuggestedStartFolder::<Identity, OFFSET>,
+            SetSuggestedStartFolder: SetSuggestedStartFolder::<Identity, OFFSET>,
+            PickMultipleFoldersAsync: PickMultipleFoldersAsync::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IFolderPicker2 as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IFolderPicker2_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub Title: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetTitle: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SettingsIdentifier: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSettingsIdentifier: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SuggestedFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSuggestedFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SuggestedStartFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub SetSuggestedStartFolder: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub PickMultipleFoldersAsync: unsafe extern "system" fn(
         *mut core::ffi::c_void,
         *mut *mut core::ffi::c_void,
     ) -> windows_core::HRESULT,

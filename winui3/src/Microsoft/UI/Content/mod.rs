@@ -3859,6 +3859,51 @@ impl DesktopPopupSiteBridge {
             (windows_core::Interface::vtable(this).Show)(windows_core::Interface::as_raw(this)).ok()
         }
     }
+    pub fn AnchoringBehavior(&self) -> windows_core::Result<PopupAnchor> {
+        let this = &windows_core::Interface::cast::<IDesktopPopupSiteBridge2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).AnchoringBehavior)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn SetAnchoringBehavior(&self, value: PopupAnchor) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IDesktopPopupSiteBridge2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetAnchoringBehavior)(
+                windows_core::Interface::as_raw(this),
+                value,
+            )
+            .ok()
+        }
+    }
+    pub fn AnchoringPixelAlignment(&self) -> windows_core::Result<ContentCoordinateRoundingMode> {
+        let this = &windows_core::Interface::cast::<IDesktopPopupSiteBridge2>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).AnchoringPixelAlignment)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn SetAnchoringPixelAlignment(
+        &self,
+        value: ContentCoordinateRoundingMode,
+    ) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IDesktopPopupSiteBridge2>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetAnchoringPixelAlignment)(
+                windows_core::Interface::as_raw(this),
+                value,
+            )
+            .ok()
+        }
+    }
     #[cfg(feature = "UI_Composition")]
     pub fn Create<P0>(parent: P0) -> windows_core::Result<DesktopPopupSiteBridge>
     where
@@ -10897,6 +10942,128 @@ pub struct IDesktopPopupSiteBridge_Vtbl {
     pub Show: unsafe extern "system" fn(*mut core::ffi::c_void) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
+    IDesktopPopupSiteBridge2,
+    IDesktopPopupSiteBridge2_Vtbl,
+    0x4559ff0e_4326_5038_b18d_37b66b242eb3
+);
+impl windows_core::RuntimeType for IDesktopPopupSiteBridge2 {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for IDesktopPopupSiteBridge2 {
+    const NAME: &'static str = "Microsoft.UI.Content.IDesktopPopupSiteBridge2";
+}
+pub trait IDesktopPopupSiteBridge2_Impl: windows_core::IUnknownImpl {
+    fn AnchoringBehavior(&self) -> windows_core::Result<PopupAnchor>;
+    fn SetAnchoringBehavior(&self, value: PopupAnchor) -> windows_core::Result<()>;
+    fn AnchoringPixelAlignment(&self) -> windows_core::Result<ContentCoordinateRoundingMode>;
+    fn SetAnchoringPixelAlignment(
+        &self,
+        value: ContentCoordinateRoundingMode,
+    ) -> windows_core::Result<()>;
+}
+impl IDesktopPopupSiteBridge2_Vtbl {
+    pub const fn new<Identity: IDesktopPopupSiteBridge2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn AnchoringBehavior<
+            Identity: IDesktopPopupSiteBridge2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut PopupAnchor,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IDesktopPopupSiteBridge2_Impl::AnchoringBehavior(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetAnchoringBehavior<
+            Identity: IDesktopPopupSiteBridge2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: PopupAnchor,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IDesktopPopupSiteBridge2_Impl::SetAnchoringBehavior(this, value).into()
+            }
+        }
+        unsafe extern "system" fn AnchoringPixelAlignment<
+            Identity: IDesktopPopupSiteBridge2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut ContentCoordinateRoundingMode,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IDesktopPopupSiteBridge2_Impl::AnchoringPixelAlignment(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn SetAnchoringPixelAlignment<
+            Identity: IDesktopPopupSiteBridge2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            value: ContentCoordinateRoundingMode,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IDesktopPopupSiteBridge2_Impl::SetAnchoringPixelAlignment(this, value).into()
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<
+                Identity,
+                IDesktopPopupSiteBridge2,
+                OFFSET,
+            >(),
+            AnchoringBehavior: AnchoringBehavior::<Identity, OFFSET>,
+            SetAnchoringBehavior: SetAnchoringBehavior::<Identity, OFFSET>,
+            AnchoringPixelAlignment: AnchoringPixelAlignment::<Identity, OFFSET>,
+            SetAnchoringPixelAlignment: SetAnchoringPixelAlignment::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IDesktopPopupSiteBridge2 as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IDesktopPopupSiteBridge2_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub AnchoringBehavior: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut PopupAnchor,
+    ) -> windows_core::HRESULT,
+    pub SetAnchoringBehavior:
+        unsafe extern "system" fn(*mut core::ffi::c_void, PopupAnchor) -> windows_core::HRESULT,
+    pub AnchoringPixelAlignment: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut ContentCoordinateRoundingMode,
+    ) -> windows_core::HRESULT,
+    pub SetAnchoringPixelAlignment: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        ContentCoordinateRoundingMode,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
     IDesktopPopupSiteBridgeStatics,
     IDesktopPopupSiteBridgeStatics_Vtbl,
     0x4ea2b77b_3177_5e5b_8d0d_a76e15c6d080
@@ -11301,4 +11468,19 @@ pub struct IDesktopSiteBridgeStatics_Vtbl {
     pub base__: windows_core::IInspectable_Vtbl,
     pub IsSupported:
         unsafe extern "system" fn(*mut core::ffi::c_void, *mut bool) -> windows_core::HRESULT,
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct PopupAnchor(pub i32);
+impl PopupAnchor {
+    pub const None: Self = Self(0i32);
+    pub const TopLevelWindow: Self = Self(1i32);
+    pub const ParentIsland: Self = Self(2i32);
+}
+impl windows_core::TypeKind for PopupAnchor {
+    type TypeKind = windows_core::CopyType;
+}
+impl windows_core::RuntimeType for PopupAnchor {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::from_slice(b"enum(Microsoft.UI.Content.PopupAnchor;i4)");
 }

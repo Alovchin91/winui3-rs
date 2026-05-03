@@ -1826,6 +1826,78 @@ pub struct IXamlBindingHelperStatics_Vtbl {
     ) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
+    IXamlCondition,
+    IXamlCondition_Vtbl,
+    0x9124118d_cdfa_545f_8c12_4cf7bcc5fffa
+);
+impl windows_core::RuntimeType for IXamlCondition {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+windows_core::imp::interface_hierarchy!(
+    IXamlCondition,
+    windows_core::IUnknown,
+    windows_core::IInspectable
+);
+impl IXamlCondition {
+    pub fn Evaluate(&self, argument: &windows_core::HSTRING) -> windows_core::Result<bool> {
+        let this = self;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).Evaluate)(
+                windows_core::Interface::as_raw(this),
+                core::mem::transmute_copy(argument),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+}
+impl windows_core::RuntimeName for IXamlCondition {
+    const NAME: &'static str = "Microsoft.UI.Xaml.Markup.IXamlCondition";
+}
+pub trait IXamlCondition_Impl: windows_core::IUnknownImpl {
+    fn Evaluate(&self, argument: &windows_core::HSTRING) -> windows_core::Result<bool>;
+}
+impl IXamlCondition_Vtbl {
+    pub const fn new<Identity: IXamlCondition_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn Evaluate<Identity: IXamlCondition_Impl, const OFFSET: isize>(
+            this: *mut core::ffi::c_void,
+            argument: *mut core::ffi::c_void,
+            result__: *mut bool,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IXamlCondition_Impl::Evaluate(this, core::mem::transmute(&argument)) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<Identity, IXamlCondition, OFFSET>(),
+            Evaluate: Evaluate::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IXamlCondition as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IXamlCondition_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub Evaluate: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut bool,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
     IXamlMarkupHelper,
     IXamlMarkupHelper_Vtbl,
     0xcd677310_3b06_5a13_b31a_401849570858

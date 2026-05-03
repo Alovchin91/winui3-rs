@@ -62877,6 +62877,145 @@ pub struct ISplitButtonAutomationPeerFactory_Vtbl {
     CreateInstance: usize,
 }
 windows_core::imp::define_interface!(
+    ISplitMenuFlyoutItemAutomationPeer,
+    ISplitMenuFlyoutItemAutomationPeer_Vtbl,
+    0x4c7668c9_a044_5b14_b239_16bea83aa8de
+);
+impl windows_core::RuntimeType for ISplitMenuFlyoutItemAutomationPeer {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for ISplitMenuFlyoutItemAutomationPeer {
+    const NAME: &'static str =
+        "Microsoft.UI.Xaml.Automation.Peers.ISplitMenuFlyoutItemAutomationPeer";
+}
+pub trait ISplitMenuFlyoutItemAutomationPeer_Impl: windows_core::IUnknownImpl {}
+impl ISplitMenuFlyoutItemAutomationPeer_Vtbl {
+    pub const fn new<Identity: ISplitMenuFlyoutItemAutomationPeer_Impl, const OFFSET: isize>(
+    ) -> Self {
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<
+                Identity,
+                ISplitMenuFlyoutItemAutomationPeer,
+                OFFSET,
+            >(),
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ISplitMenuFlyoutItemAutomationPeer as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ISplitMenuFlyoutItemAutomationPeer_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+}
+windows_core::imp::define_interface!(
+    ISplitMenuFlyoutItemAutomationPeerFactory,
+    ISplitMenuFlyoutItemAutomationPeerFactory_Vtbl,
+    0x04914f22_1358_54fb_99ea_8c08d4b67456
+);
+impl windows_core::RuntimeType for ISplitMenuFlyoutItemAutomationPeerFactory {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+#[cfg(all(
+    feature = "UI_Composition",
+    feature = "UI_Xaml_Automation_Provider",
+    feature = "UI_Xaml_Controls"
+))]
+impl windows_core::RuntimeName for ISplitMenuFlyoutItemAutomationPeerFactory {
+    const NAME: &'static str =
+        "Microsoft.UI.Xaml.Automation.Peers.ISplitMenuFlyoutItemAutomationPeerFactory";
+}
+#[cfg(all(
+    feature = "UI_Composition",
+    feature = "UI_Xaml_Automation_Provider",
+    feature = "UI_Xaml_Controls"
+))]
+pub trait ISplitMenuFlyoutItemAutomationPeerFactory_Impl: windows_core::IUnknownImpl {
+    fn CreateInstanceWithOwner(
+        &self,
+        owner: windows_core::Ref<super::super::Controls::SplitMenuFlyoutItem>,
+        baseInterface: windows_core::Ref<windows_core::IInspectable>,
+        innerInterface: windows_core::OutRef<windows_core::IInspectable>,
+    ) -> windows_core::Result<SplitMenuFlyoutItemAutomationPeer>;
+}
+#[cfg(all(
+    feature = "UI_Composition",
+    feature = "UI_Xaml_Automation_Provider",
+    feature = "UI_Xaml_Controls"
+))]
+impl ISplitMenuFlyoutItemAutomationPeerFactory_Vtbl {
+    pub const fn new<
+        Identity: ISplitMenuFlyoutItemAutomationPeerFactory_Impl,
+        const OFFSET: isize,
+    >() -> Self {
+        unsafe extern "system" fn CreateInstanceWithOwner<
+            Identity: ISplitMenuFlyoutItemAutomationPeerFactory_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            owner: *mut core::ffi::c_void,
+            baseinterface: *mut core::ffi::c_void,
+            innerinterface: *mut *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match ISplitMenuFlyoutItemAutomationPeerFactory_Impl::CreateInstanceWithOwner(
+                    this,
+                    core::mem::transmute_copy(&owner),
+                    core::mem::transmute_copy(&baseinterface),
+                    core::mem::transmute_copy(&innerinterface),
+                ) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<
+                Identity,
+                ISplitMenuFlyoutItemAutomationPeerFactory,
+                OFFSET,
+            >(),
+            CreateInstanceWithOwner: CreateInstanceWithOwner::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ISplitMenuFlyoutItemAutomationPeerFactory as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ISplitMenuFlyoutItemAutomationPeerFactory_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    #[cfg(all(
+        feature = "UI_Composition",
+        feature = "UI_Xaml_Automation_Provider",
+        feature = "UI_Xaml_Controls"
+    ))]
+    pub CreateInstanceWithOwner: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    #[cfg(not(all(
+        feature = "UI_Composition",
+        feature = "UI_Xaml_Automation_Provider",
+        feature = "UI_Xaml_Controls"
+    )))]
+    CreateInstanceWithOwner: usize,
+}
+windows_core::imp::define_interface!(
     ITabViewAutomationPeer,
     ITabViewAutomationPeer_Vtbl,
     0xefb3f05b_2a25_5266_a1cb_5a0aa451ca32
@@ -145656,6 +145795,1484 @@ impl windows_core::RuntimeName for SplitButtonAutomationPeer {
 unsafe impl Send for SplitButtonAutomationPeer {}
 #[cfg(feature = "UI_Xaml_Automation_Provider")]
 unsafe impl Sync for SplitButtonAutomationPeer {}
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+#[repr(transparent)]
+#[derive(Clone, Debug, Eq, PartialEq)]
+pub struct SplitMenuFlyoutItemAutomationPeer(windows_core::IUnknown);
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+windows_core::imp::interface_hierarchy!(
+    SplitMenuFlyoutItemAutomationPeer,
+    windows_core::IUnknown,
+    windows_core::IInspectable
+);
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+windows_core::imp::required_hierarchy!(
+    SplitMenuFlyoutItemAutomationPeer,
+    super::Provider::IExpandCollapseProvider,
+    super::Provider::IInvokeProvider,
+    FrameworkElementAutomationPeer,
+    AutomationPeer,
+    super::super::DependencyObject
+);
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+impl SplitMenuFlyoutItemAutomationPeer {
+    pub fn EventsSource(&self) -> windows_core::Result<AutomationPeer> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).EventsSource)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn SetEventsSource<P0>(&self, value: P0) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<AutomationPeer>,
+    {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetEventsSource)(
+                windows_core::Interface::as_raw(this),
+                value.param().abi(),
+            )
+            .ok()
+        }
+    }
+    pub fn GetPattern(
+        &self,
+        patterninterface: PatternInterface,
+    ) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetPattern)(
+                windows_core::Interface::as_raw(this),
+                patterninterface,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn RaiseAutomationEvent(&self, eventid: AutomationEvents) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).RaiseAutomationEvent)(
+                windows_core::Interface::as_raw(this),
+                eventid,
+            )
+            .ok()
+        }
+    }
+    pub fn RaisePropertyChangedEvent<P0, P1, P2>(
+        &self,
+        automationproperty: P0,
+        oldvalue: P1,
+        newvalue: P2,
+    ) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<super::AutomationProperty>,
+        P1: windows_core::Param<windows_core::IInspectable>,
+        P2: windows_core::Param<windows_core::IInspectable>,
+    {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).RaisePropertyChangedEvent)(
+                windows_core::Interface::as_raw(this),
+                automationproperty.param().abi(),
+                oldvalue.param().abi(),
+                newvalue.param().abi(),
+            )
+            .ok()
+        }
+    }
+    pub fn GetAcceleratorKey(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAcceleratorKey)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetAccessKey(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAccessKey)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetAutomationControlType(&self) -> windows_core::Result<AutomationControlType> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAutomationControlType)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetAutomationId(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAutomationId)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetBoundingRectangle(&self) -> windows_core::Result<windows::Foundation::Rect> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetBoundingRectangle)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetChildren(
+        &self,
+    ) -> windows_core::Result<windows_collections::IVector<AutomationPeer>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetChildren)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn Navigate(
+        &self,
+        direction: AutomationNavigationDirection,
+    ) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).Navigate)(
+                windows_core::Interface::as_raw(this),
+                direction,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetClassName(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetClassName)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetClickablePoint(&self) -> windows_core::Result<windows::Foundation::Point> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetClickablePoint)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetHelpText(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetHelpText)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetItemStatus(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetItemStatus)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetItemType(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetItemType)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetLabeledBy(&self) -> windows_core::Result<AutomationPeer> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLabeledBy)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetLocalizedControlType(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLocalizedControlType)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetName(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetName)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetOrientation(&self) -> windows_core::Result<AutomationOrientation> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetOrientation)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn HasKeyboardFocus(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).HasKeyboardFocus)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsContentElement(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsContentElement)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsControlElement(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsControlElement)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsEnabled(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsEnabled)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsKeyboardFocusable(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsKeyboardFocusable)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsOffscreen(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsOffscreen)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsPassword(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsPassword)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsRequiredForForm(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsRequiredForForm)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn SetFocus(&self) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetFocus)(windows_core::Interface::as_raw(this))
+                .ok()
+        }
+    }
+    pub fn GetParent(&self) -> windows_core::Result<AutomationPeer> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetParent)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn InvalidatePeer(&self) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).InvalidatePeer)(windows_core::Interface::as_raw(
+                this,
+            ))
+            .ok()
+        }
+    }
+    pub fn GetPeerFromPoint(
+        &self,
+        point: windows::Foundation::Point,
+    ) -> windows_core::Result<AutomationPeer> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetPeerFromPoint)(
+                windows_core::Interface::as_raw(this),
+                point,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetElementFromPoint(
+        &self,
+        pointinwindowcoordinates: windows::Foundation::Point,
+    ) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetElementFromPoint)(
+                windows_core::Interface::as_raw(this),
+                pointinwindowcoordinates,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetFocusedElement(&self) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetFocusedElement)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetLiveSetting(&self) -> windows_core::Result<AutomationLiveSetting> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLiveSetting)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn ShowContextMenu(&self) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).ShowContextMenu)(
+                windows_core::Interface::as_raw(this),
+            )
+            .ok()
+        }
+    }
+    pub fn GetControlledPeers(
+        &self,
+    ) -> windows_core::Result<windows_collections::IVectorView<AutomationPeer>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetControlledPeers)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetAnnotations(
+        &self,
+    ) -> windows_core::Result<windows_collections::IVector<AutomationPeerAnnotation>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAnnotations)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn SetParent<P0>(&self, peer: P0) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<AutomationPeer>,
+    {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetParent)(
+                windows_core::Interface::as_raw(this),
+                peer.param().abi(),
+            )
+            .ok()
+        }
+    }
+    pub fn RaiseTextEditTextChangedEvent<P1>(
+        &self,
+        automationtexteditchangetype: super::AutomationTextEditChangeType,
+        changeddata: P1,
+    ) -> windows_core::Result<()>
+    where
+        P1: windows_core::Param<windows_collections::IVectorView<windows_core::HSTRING>>,
+    {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).RaiseTextEditTextChangedEvent)(
+                windows_core::Interface::as_raw(this),
+                automationtexteditchangetype,
+                changeddata.param().abi(),
+            )
+            .ok()
+        }
+    }
+    pub fn GetPositionInSet(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetPositionInSet)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetSizeOfSet(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetSizeOfSet)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetLevel(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLevel)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn RaiseStructureChangedEvent<P1>(
+        &self,
+        structurechangetype: AutomationStructureChangeType,
+        child: P1,
+    ) -> windows_core::Result<()>
+    where
+        P1: windows_core::Param<AutomationPeer>,
+    {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).RaiseStructureChangedEvent)(
+                windows_core::Interface::as_raw(this),
+                structurechangetype,
+                child.param().abi(),
+            )
+            .ok()
+        }
+    }
+    pub fn GetLandmarkType(&self) -> windows_core::Result<AutomationLandmarkType> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLandmarkType)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetLocalizedLandmarkType(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLocalizedLandmarkType)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn IsPeripheral(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsPeripheral)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsDataValidForForm(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsDataValidForForm)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetFullDescription(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetFullDescription)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetCulture(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetCulture)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn RaiseNotificationEvent(
+        &self,
+        notificationkind: AutomationNotificationKind,
+        notificationprocessing: AutomationNotificationProcessing,
+        displaystring: &windows_core::HSTRING,
+        activityid: &windows_core::HSTRING,
+    ) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).RaiseNotificationEvent)(
+                windows_core::Interface::as_raw(this),
+                notificationkind,
+                notificationprocessing,
+                core::mem::transmute_copy(displaystring),
+                core::mem::transmute_copy(activityid),
+            )
+            .ok()
+        }
+    }
+    pub fn GetHeadingLevel(&self) -> windows_core::Result<AutomationHeadingLevel> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetHeadingLevel)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsDialog(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsDialog)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetPatternCore(
+        &self,
+        patterninterface: PatternInterface,
+    ) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetPatternCore)(
+                windows_core::Interface::as_raw(this),
+                patterninterface,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetAcceleratorKeyCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAcceleratorKeyCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetAccessKeyCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAccessKeyCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetAutomationControlTypeCore(&self) -> windows_core::Result<AutomationControlType> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAutomationControlTypeCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetAutomationIdCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAutomationIdCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetBoundingRectangleCore(&self) -> windows_core::Result<windows::Foundation::Rect> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetBoundingRectangleCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetChildrenCore(
+        &self,
+    ) -> windows_core::Result<windows_collections::IVector<AutomationPeer>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetChildrenCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn NavigateCore(
+        &self,
+        direction: AutomationNavigationDirection,
+    ) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).NavigateCore)(
+                windows_core::Interface::as_raw(this),
+                direction,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetClassNameCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetClassNameCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetClickablePointCore(&self) -> windows_core::Result<windows::Foundation::Point> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetClickablePointCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetHelpTextCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetHelpTextCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetItemStatusCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetItemStatusCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetItemTypeCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetItemTypeCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetLabeledByCore(&self) -> windows_core::Result<AutomationPeer> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLabeledByCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetLocalizedControlTypeCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLocalizedControlTypeCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetNameCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetNameCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetOrientationCore(&self) -> windows_core::Result<AutomationOrientation> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetOrientationCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn HasKeyboardFocusCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).HasKeyboardFocusCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsContentElementCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsContentElementCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsControlElementCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsControlElementCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsEnabledCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsEnabledCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsKeyboardFocusableCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsKeyboardFocusableCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsOffscreenCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsOffscreenCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsPasswordCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsPasswordCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsRequiredForFormCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsRequiredForFormCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn SetFocusCore(&self) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetFocusCore)(windows_core::Interface::as_raw(
+                this,
+            ))
+            .ok()
+        }
+    }
+    pub fn GetPeerFromPointCore(
+        &self,
+        point: windows::Foundation::Point,
+    ) -> windows_core::Result<AutomationPeer> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetPeerFromPointCore)(
+                windows_core::Interface::as_raw(this),
+                point,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetElementFromPointCore(
+        &self,
+        pointinwindowcoordinates: windows::Foundation::Point,
+    ) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetElementFromPointCore)(
+                windows_core::Interface::as_raw(this),
+                pointinwindowcoordinates,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetFocusedElementCore(&self) -> windows_core::Result<windows_core::IInspectable> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetFocusedElementCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetLiveSettingCore(&self) -> windows_core::Result<AutomationLiveSetting> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLiveSettingCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn ShowContextMenuCore(&self) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).ShowContextMenuCore)(
+                windows_core::Interface::as_raw(this),
+            )
+            .ok()
+        }
+    }
+    pub fn GetControlledPeersCore(
+        &self,
+    ) -> windows_core::Result<windows_collections::IVectorView<AutomationPeer>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetControlledPeersCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetAnnotationsCore(
+        &self,
+    ) -> windows_core::Result<windows_collections::IVector<AutomationPeerAnnotation>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAnnotationsCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetPositionInSetCore(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetPositionInSetCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetSizeOfSetCore(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetSizeOfSetCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetLevelCore(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLevelCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetLandmarkTypeCore(&self) -> windows_core::Result<AutomationLandmarkType> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLandmarkTypeCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetLocalizedLandmarkTypeCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetLocalizedLandmarkTypeCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn IsPeripheralCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsPeripheralCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsDataValidForFormCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsDataValidForFormCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetFullDescriptionCore(&self) -> windows_core::Result<windows_core::HSTRING> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetFullDescriptionCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| core::mem::transmute(result__))
+        }
+    }
+    pub fn GetDescribedByCore(
+        &self,
+    ) -> windows_core::Result<windows_collections::IIterable<AutomationPeer>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetDescribedByCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetFlowsToCore(
+        &self,
+    ) -> windows_core::Result<windows_collections::IIterable<AutomationPeer>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetFlowsToCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetFlowsFromCore(
+        &self,
+    ) -> windows_core::Result<windows_collections::IIterable<AutomationPeer>> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetFlowsFromCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetCultureCore(&self) -> windows_core::Result<i32> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetCultureCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn GetHeadingLevelCore(&self) -> windows_core::Result<AutomationHeadingLevel> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetHeadingLevelCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn IsDialogCore(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IAutomationPeerOverrides>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).IsDialogCore)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn PeerFromProvider<P0>(&self, provider: P0) -> windows_core::Result<AutomationPeer>
+    where
+        P0: windows_core::Param<super::Provider::IRawElementProviderSimple>,
+    {
+        let this = &windows_core::Interface::cast::<IAutomationPeerProtected>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).PeerFromProvider)(
+                windows_core::Interface::as_raw(this),
+                provider.param().abi(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn ProviderFromPeer<P0>(
+        &self,
+        peer: P0,
+    ) -> windows_core::Result<super::Provider::IRawElementProviderSimple>
+    where
+        P0: windows_core::Param<AutomationPeer>,
+    {
+        let this = &windows_core::Interface::cast::<IAutomationPeerProtected>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).ProviderFromPeer)(
+                windows_core::Interface::as_raw(this),
+                peer.param().abi(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetValue<P0>(&self, dp: P0) -> windows_core::Result<windows_core::IInspectable>
+    where
+        P0: windows_core::Param<super::super::DependencyProperty>,
+    {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetValue)(
+                windows_core::Interface::as_raw(this),
+                dp.param().abi(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn SetValue<P0, P1>(&self, dp: P0, value: P1) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<super::super::DependencyProperty>,
+        P1: windows_core::Param<windows_core::IInspectable>,
+    {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).SetValue)(
+                windows_core::Interface::as_raw(this),
+                dp.param().abi(),
+                value.param().abi(),
+            )
+            .ok()
+        }
+    }
+    pub fn ClearValue<P0>(&self, dp: P0) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<super::super::DependencyProperty>,
+    {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).ClearValue)(
+                windows_core::Interface::as_raw(this),
+                dp.param().abi(),
+            )
+            .ok()
+        }
+    }
+    pub fn ReadLocalValue<P0>(&self, dp: P0) -> windows_core::Result<windows_core::IInspectable>
+    where
+        P0: windows_core::Param<super::super::DependencyProperty>,
+    {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).ReadLocalValue)(
+                windows_core::Interface::as_raw(this),
+                dp.param().abi(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn GetAnimationBaseValue<P0>(
+        &self,
+        dp: P0,
+    ) -> windows_core::Result<windows_core::IInspectable>
+    where
+        P0: windows_core::Param<super::super::DependencyProperty>,
+    {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetAnimationBaseValue)(
+                windows_core::Interface::as_raw(this),
+                dp.param().abi(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn RegisterPropertyChangedCallback<P0, P1>(
+        &self,
+        dp: P0,
+        callback: P1,
+    ) -> windows_core::Result<i64>
+    where
+        P0: windows_core::Param<super::super::DependencyProperty>,
+        P1: windows_core::Param<super::super::DependencyPropertyChangedCallback>,
+    {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).RegisterPropertyChangedCallback)(
+                windows_core::Interface::as_raw(this),
+                dp.param().abi(),
+                callback.param().abi(),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn UnregisterPropertyChangedCallback<P0>(
+        &self,
+        dp: P0,
+        token: i64,
+    ) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<super::super::DependencyProperty>,
+    {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).UnregisterPropertyChangedCallback)(
+                windows_core::Interface::as_raw(this),
+                dp.param().abi(),
+                token,
+            )
+            .ok()
+        }
+    }
+    pub fn Dispatcher(&self) -> windows_core::Result<windows::UI::Core::CoreDispatcher> {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).Dispatcher)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    #[cfg(feature = "UI_Dispatching")]
+    pub fn DispatcherQueue(
+        &self,
+    ) -> windows_core::Result<super::super::super::Dispatching::DispatcherQueue> {
+        let this = &windows_core::Interface::cast::<super::super::IDependencyObject>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).DispatcherQueue)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn ExpandCollapseState(&self) -> windows_core::Result<super::ExpandCollapseState> {
+        let this =
+            &windows_core::Interface::cast::<super::Provider::IExpandCollapseProvider>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).ExpandCollapseState)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
+        }
+    }
+    pub fn Collapse(&self) -> windows_core::Result<()> {
+        let this =
+            &windows_core::Interface::cast::<super::Provider::IExpandCollapseProvider>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).Collapse)(windows_core::Interface::as_raw(this))
+                .ok()
+        }
+    }
+    pub fn Expand(&self) -> windows_core::Result<()> {
+        let this =
+            &windows_core::Interface::cast::<super::Provider::IExpandCollapseProvider>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).Expand)(windows_core::Interface::as_raw(this))
+                .ok()
+        }
+    }
+    #[cfg(feature = "UI_Composition")]
+    pub fn Owner(&self) -> windows_core::Result<super::super::UIElement> {
+        let this = &windows_core::Interface::cast::<IFrameworkElementAutomationPeer>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).Owner)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        }
+    }
+    pub fn Invoke(&self) -> windows_core::Result<()> {
+        let this = &windows_core::Interface::cast::<super::Provider::IInvokeProvider>(self)?;
+        unsafe {
+            (windows_core::Interface::vtable(this).Invoke)(windows_core::Interface::as_raw(this))
+                .ok()
+        }
+    }
+    #[cfg(all(feature = "UI_Composition", feature = "UI_Xaml_Controls"))]
+    pub fn CreateInstanceWithOwner<P0>(
+        owner: P0,
+    ) -> windows_core::Result<SplitMenuFlyoutItemAutomationPeer>
+    where
+        P0: windows_core::Param<super::super::Controls::SplitMenuFlyoutItem>,
+    {
+        Self::ISplitMenuFlyoutItemAutomationPeerFactory(|this| unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).CreateInstanceWithOwner)(
+                windows_core::Interface::as_raw(this),
+                owner.param().abi(),
+                core::ptr::null_mut(),
+                &mut core::ptr::null_mut(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        })
+    }
+    fn ISplitMenuFlyoutItemAutomationPeerFactory<
+        R,
+        F: FnOnce(&ISplitMenuFlyoutItemAutomationPeerFactory) -> windows_core::Result<R>,
+    >(
+        callback: F,
+    ) -> windows_core::Result<R> {
+        static SHARED: windows_core::imp::FactoryCache<
+            SplitMenuFlyoutItemAutomationPeer,
+            ISplitMenuFlyoutItemAutomationPeerFactory,
+        > = windows_core::imp::FactoryCache::new();
+        SHARED.call(callback)
+    }
+}
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+impl windows_core::RuntimeType for SplitMenuFlyoutItemAutomationPeer {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_class::<Self, ISplitMenuFlyoutItemAutomationPeer>();
+}
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+unsafe impl windows_core::Interface for SplitMenuFlyoutItemAutomationPeer {
+    type Vtable = <ISplitMenuFlyoutItemAutomationPeer as windows_core::Interface>::Vtable;
+    const IID: windows_core::GUID =
+        <ISplitMenuFlyoutItemAutomationPeer as windows_core::Interface>::IID;
+}
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+impl windows_core::RuntimeName for SplitMenuFlyoutItemAutomationPeer {
+    const NAME: &'static str =
+        "Microsoft.UI.Xaml.Automation.Peers.SplitMenuFlyoutItemAutomationPeer";
+}
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+unsafe impl Send for SplitMenuFlyoutItemAutomationPeer {}
+#[cfg(feature = "UI_Xaml_Automation_Provider")]
+unsafe impl Sync for SplitMenuFlyoutItemAutomationPeer {}
 #[repr(transparent)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct TabViewAutomationPeer(windows_core::IUnknown);

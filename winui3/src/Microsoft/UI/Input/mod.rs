@@ -5257,6 +5257,59 @@ pub struct IInputFocusController2_Vtbl {
         unsafe extern "system" fn(*mut core::ffi::c_void, i64) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
+    IInputFocusController3,
+    IInputFocusController3_Vtbl,
+    0xe8e82853_46ce_53b5_9029_a74dabea9d32
+);
+impl windows_core::RuntimeType for IInputFocusController3 {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for IInputFocusController3 {
+    const NAME: &'static str = "Microsoft.UI.Input.IInputFocusController3";
+}
+pub trait IInputFocusController3_Impl: windows_core::IUnknownImpl {
+    fn ShouldShowKeyboardCues(&self) -> windows_core::Result<bool>;
+}
+impl IInputFocusController3_Vtbl {
+    pub const fn new<Identity: IInputFocusController3_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn ShouldShowKeyboardCues<
+            Identity: IInputFocusController3_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut bool,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IInputFocusController3_Impl::ShouldShowKeyboardCues(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<Identity, IInputFocusController3, OFFSET>(
+            ),
+            ShouldShowKeyboardCues: ShouldShowKeyboardCues::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IInputFocusController3 as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IInputFocusController3_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub ShouldShowKeyboardCues:
+        unsafe extern "system" fn(*mut core::ffi::c_void, *mut bool) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
     IInputFocusControllerStatics,
     IInputFocusControllerStatics_Vtbl,
     0xaeb311da_da9b_5a1b_92f4_83ddde933e00
@@ -10379,6 +10432,64 @@ pub struct IPointerPointProperties_Vtbl {
     pub YTilt: unsafe extern "system" fn(*mut core::ffi::c_void, *mut f32) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
+    IPointerPointStatics,
+    IPointerPointStatics_Vtbl,
+    0x880d34c2_acfd_51d9_b60a_b408ce17590c
+);
+impl windows_core::RuntimeType for IPointerPointStatics {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for IPointerPointStatics {
+    const NAME: &'static str = "Microsoft.UI.Input.IPointerPointStatics";
+}
+pub trait IPointerPointStatics_Impl: windows_core::IUnknownImpl {
+    fn GetCurrentPoint(&self, pointerId: u32) -> windows_core::Result<PointerPoint>;
+}
+impl IPointerPointStatics_Vtbl {
+    pub const fn new<Identity: IPointerPointStatics_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn GetCurrentPoint<
+            Identity: IPointerPointStatics_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            pointerid: u32,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match IPointerPointStatics_Impl::GetCurrentPoint(this, pointerid) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<Identity, IPointerPointStatics, OFFSET>(
+            ),
+            GetCurrentPoint: GetCurrentPoint::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IPointerPointStatics as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IPointerPointStatics_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub GetCurrentPoint: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        u32,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
     IPointerPointTransform,
     IPointerPointTransform_Vtbl,
     0xdb4791bc_994d_54c7_92ef_66ea1de9b43c
@@ -11863,6 +11974,17 @@ impl InputFocusController {
                 token,
             )
             .ok()
+        }
+    }
+    pub fn ShouldShowKeyboardCues(&self) -> windows_core::Result<bool> {
+        let this = &windows_core::Interface::cast::<IInputFocusController3>(self)?;
+        unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).ShouldShowKeyboardCues)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .map(|| result__)
         }
     }
     #[cfg(all(feature = "UI_Composition", feature = "UI_Content"))]
@@ -14471,6 +14593,24 @@ impl PointerPoint {
             )
             .and_then(|| windows_core::Type::from_abi(result__))
         }
+    }
+    pub fn GetCurrentPoint(pointerid: u32) -> windows_core::Result<PointerPoint> {
+        Self::IPointerPointStatics(|this| unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetCurrentPoint)(
+                windows_core::Interface::as_raw(this),
+                pointerid,
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        })
+    }
+    fn IPointerPointStatics<R, F: FnOnce(&IPointerPointStatics) -> windows_core::Result<R>>(
+        callback: F,
+    ) -> windows_core::Result<R> {
+        static SHARED: windows_core::imp::FactoryCache<PointerPoint, IPointerPointStatics> =
+            windows_core::imp::FactoryCache::new();
+        SHARED.call(callback)
     }
 }
 impl windows_core::RuntimeType for PointerPoint {
