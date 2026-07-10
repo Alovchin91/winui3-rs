@@ -83,13 +83,15 @@ with v1.8). The fields we need:
 
 To add support for a new major.minor release:
 
-1. On NuGet, find the earliest non-experimental, non-preview release of
-   `Microsoft.WindowsAppSDK.Runtime` for that major.minor and download the
-   `.nupkg`.
-2. Extract it (it's a zip) and open `WindowsAppSDK-VersionInfo.json`.
-3. Add two new constants in `src/bootstrap/mod.rs` using the JSON values above.
-4. Extend the `WindowsAppSDKVersion` enum and its two `const fn` accessors.
-5. Optionally bump the default used by `PackageDependency::initialize`.
+1. Run `./bindgen/fetch-winmd.ps1 -Version <major.minor>` — it resolves the
+   matching `Microsoft.WindowsAppSDK.Runtime` release, extracts
+   `WindowsAppSDK-VersionInfo.json`, and prints both values. (Manual
+   fallback: download the Runtime `.nupkg` from NuGet, extract it — it's a
+   zip — and read the JSON fields above.)
+2. Add two new constants in `src/bootstrap/mod.rs` using those values.
+3. Extend the `WindowsAppSDKVersion` enum and its two `const fn` accessors.
+4. Bump the default used by `PackageDependency::initialize` unless there's
+   an explicit reason not to.
 
 ### Why `dynamic_dependency.rs` exists
 
