@@ -32,16 +32,34 @@ The eight WinMDs come from four NuGet packages:
 
 ### Picking versions
 
-- **`Microsoft.WindowsAppSDK.*` packages** — use the **earliest available
-  patch** release (non-experimental, non-preview) for the minor version
-  you're adding. For WinAppSDK 1.8, that's the first stable 1.8.x.y on NuGet.
-- **`Microsoft.Web.WebView2`** — use the **minimum version** that the chosen
-  `Microsoft.WindowsAppSDK.WinUI` package depends on (check its `.nuspec`).
+`fetch-winmd.ps1` (next to this file) automates resolution, download, and
+staging — give it a WinAppSDK `major.minor` (or an exact meta-package
+version) and it does the rest:
 
-Extract each `.nupkg` (they're zips), copy the WinMDs from the paths above
-into `bindgen/winmd/`, then run the tool. The nested subdirectory in
-`InteractiveExperiences` (`metadata/10.0.18362.0/`) is only the source
-location — everything ends up flat in `bindgen/winmd/`.
+```powershell
+./bindgen/fetch-winmd.ps1 -Version 2.1
+```
+
+The resolution rules it implements:
+
+- Versions come from the **`Microsoft.WindowsAppSDK` meta-package**: take the
+  earliest stable (non-experimental, non-preview) patch of the minor you're
+  adding; its `.nuspec` pins the exact split-package versions. The split
+  packages do **not** version in lockstep with the SDK — e.g. WinAppSDK 2.1
+  ships `InteractiveExperiences` 2.0.13 — so resolving them independently by
+  version number does not work.
+- **`Microsoft.Web.WebView2`** — the **minimum version** that the resolved
+  `Microsoft.WindowsAppSDK.WinUI` package depends on (from its `.nuspec`).
+- When a package carries one winmd copy per target platform version (e.g.
+  `InteractiveExperiences` has both `metadata/10.0.17763.0/` and
+  `metadata/10.0.18362.0/`), take the **highest-versioned** one.
+
+Everything ends up flat in `bindgen/winmd/`; the expected file set is read
+from the `--in` lines of `etc/winui3.txt`, so the script doesn't need
+updating when that list changes. Unless `-SkipRuntime` is given, the script
+also downloads `Microsoft.WindowsAppSDK.Runtime` and prints the bootstrap
+constants needed for a new `WindowsAppSDKVersion` variant (see
+`winui3/ARCHITECTURE.md` → "Adding a new WinAppSDK version").
 
 ## Running
 

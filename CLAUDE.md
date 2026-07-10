@@ -58,6 +58,8 @@ Top-level module convention: `crate::Microsoft::...` mirrors the `Microsoft.*` W
 
 ## Regenerating bindings
 
+**Always work through the `regenerate-bindings` skill** for any regeneration or WinAppSDK version work — it packages the full workflow (winmd staging via `bindgen/fetch-winmd.ps1` → `cargo run -p bindgen` → bootstrap variant → feature-isolation validation) with the failure modes and fix loops spelled out. Invoke it before improvising from the notes below. (Plain version bumps of the `windows` / `windows-bindgen` dependencies are manual work, not a trigger for the skill.)
+
 `cargo run -p bindgen` is the entry point. Must be invoked from the workspace root, and `bindgen/winmd/` must be populated with the expected `.winmd` files first (gitignored — sourced from specific NuGet packages).
 
 **See `bindgen/ARCHITECTURE.md`** for the full procedure: which NuGet packages to pull, how to pick versions, what the two generation passes and two post-process steps do, and known gaps. Open backlogs: `winui3/TODO.md`, `bindgen/TODO.md`.

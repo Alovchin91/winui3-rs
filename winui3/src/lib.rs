@@ -50,7 +50,7 @@ pub trait Activatable {
     fn activate() -> windows_core::Result<windows_core::IInspectable>;
 }
 
-#[cfg(feature = "UI_Xaml_Interop")]
+#[cfg(feature = "UI_Xaml")]
 pub fn xaml_typename<T: AsRef<str>>(type_name: T) -> Windows::UI::Xaml::Interop::TypeName {
     Windows::UI::Xaml::Interop::TypeName {
         Name: windows_core::HSTRING::from(type_name.as_ref()),
