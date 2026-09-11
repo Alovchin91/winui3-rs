@@ -69,6 +69,10 @@ Both panic loudly rather than silently no-op:
   `bindgen/src/main.rs`; the goal is only to make `IApplicationFactory` /
   `IPageFactory` `pub(crate)` for `xaml_app.rs` / `xaml_page.rs`.
 
+A failed run can leave partial generated output. Fix the cause, undo the
+failed run's generated changes, then re-run `cargo run -p bindgen` and
+validate the result.
+
 ## Step 3: Bootstrap variant (only when adding a new WinAppSDK version)
 
 In `winui3/src/bootstrap/mod.rs`, using the values the script printed:
@@ -147,7 +151,7 @@ The generated diff is large; review it by shape, not line by line:
   `windows-bindgen` bump changed output style, not an API change.
 - `git diff winui3/Cargo.toml` — the feature-table diff is the readable
   summary of what appeared. New features = new namespaces; check each
-  compiles (step 4.1 covers this).
+  compiles in isolation (step 4.2).
 - Search the full diff for removals of `pub` items (`git diff | grep '^-.*pub '`)
   — additions are expected, removals are the breaking-change red flag from
   the top of this skill.

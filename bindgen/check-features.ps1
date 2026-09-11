@@ -14,8 +14,10 @@ automatically tracks regenerated feature tables.
 The first sweep is slow: each distinct feature set builds its own variant of the
 `windows` crate. Subsequent sweeps reuse the cached variants and are much faster.
 
-On failure, fix the feature's entry in `FEATURE_PATCHES` (bindgen/src/main.rs) and
-re-run `cargo run -p bindgen` — do not hand-edit winui3/Cargo.toml.
+For missing feature dependencies in generated code, fix the feature's entry in
+`FEATURE_PATCHES` (bindgen/src/main.rs) and re-run `cargo run -p bindgen` — do not
+hand-edit the generated feature table in winui3/Cargo.toml. For unresolved paths
+in hand-written code, inspect the item's `#[cfg(feature = ...)]` gate instead.
 
 .PARAMETER Feature
 Optional subset of features to check. Default: every feature in the manifest.
@@ -65,7 +67,8 @@ try {
     ''
     if ($failed) {
         "FAILED ($($failed.Count)): $($failed -join ', ')"
-        "Fix via FEATURE_PATCHES in bindgen/src/main.rs, then re-run ``cargo run -p bindgen``."
+        "For missing feature dependencies in generated code: update FEATURE_PATCHES in bindgen/src/main.rs, then re-run ``cargo run -p bindgen``."
+        "For unresolved paths in hand-written code: inspect the item's #[cfg(feature = ...)] gate."
         exit 1
     }
     "All $($names.Count) features check individually."
