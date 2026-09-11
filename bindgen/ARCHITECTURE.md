@@ -93,6 +93,10 @@ Both post-process steps panic on assertion failure rather than silently
 no-opping, so a broken assumption after a `windows-bindgen` upgrade fails
 fast at the exact source.
 
+Generation is not transactional: a later failure can leave earlier passes or
+patches applied. After fixing the cause, undo that run's generated changes
+and regenerate before validation.
+
 After regenerating, inspect the diff. If `cargo check` reveals unresolved
 types in the generated code, add the missing dep to `FEATURE_PATCHES` in
 `src/main.rs`.
