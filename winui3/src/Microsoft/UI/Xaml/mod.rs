@@ -25172,6 +25172,61 @@ pub struct ISetterFactory_Vtbl {
     ) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
+    ISetterStatics2,
+    ISetterStatics2_Vtbl,
+    0x2c5ff014_59bc_5438_98b9_2292bd4d0731
+);
+impl windows_core::RuntimeType for ISetterStatics2 {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for ISetterStatics2 {
+    const NAME: &'static str = "Microsoft.UI.Xaml.ISetterStatics2";
+}
+pub trait ISetterStatics2_Impl: windows_core::IUnknownImpl {
+    fn ValueProperty(&self) -> windows_core::Result<DependencyProperty>;
+}
+impl ISetterStatics2_Vtbl {
+    pub const fn new<Identity: ISetterStatics2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn ValueProperty<
+            Identity: ISetterStatics2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match ISetterStatics2_Impl::ValueProperty(this) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<Identity, ISetterStatics2, OFFSET>(),
+            ValueProperty: ValueProperty::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ISetterStatics2 as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ISetterStatics2_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub ValueProperty: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
     ISizeChangedEventArgs,
     ISizeChangedEventArgs_Vtbl,
     0xfe76324e_6dfb_58b1_9dcd_886ca8f9a2ea
@@ -39906,10 +39961,27 @@ impl Setter {
             .and_then(|| windows_core::Type::from_abi(result__))
         })
     }
+    pub fn ValueProperty() -> windows_core::Result<DependencyProperty> {
+        Self::ISetterStatics2(|this| unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).ValueProperty)(
+                windows_core::Interface::as_raw(this),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        })
+    }
     fn ISetterFactory<R, F: FnOnce(&ISetterFactory) -> windows_core::Result<R>>(
         callback: F,
     ) -> windows_core::Result<R> {
         static SHARED: windows_core::imp::FactoryCache<Setter, ISetterFactory> =
+            windows_core::imp::FactoryCache::new();
+        SHARED.call(callback)
+    }
+    fn ISetterStatics2<R, F: FnOnce(&ISetterStatics2) -> windows_core::Result<R>>(
+        callback: F,
+    ) -> windows_core::Result<R> {
+        static SHARED: windows_core::imp::FactoryCache<Setter, ISetterStatics2> =
             windows_core::imp::FactoryCache::new();
         SHARED.call(callback)
     }

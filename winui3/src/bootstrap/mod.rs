@@ -53,6 +53,10 @@ const WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V2_1: u64 = 0x0002000100030000_u64;
 const WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME_V2_1: &HSTRING =
     h!("Microsoft.WindowsAppRuntime.2_8wekyb3d8bbwe");
 
+const WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V2_2: u64 = 0x0002000200000000_u64;
+const WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME_V2_2: &HSTRING =
+    h!("Microsoft.WindowsAppRuntime.2_8wekyb3d8bbwe");
+
 pub enum WindowsAppSDKVersion {
     V1_5,
     V1_6,
@@ -60,6 +64,7 @@ pub enum WindowsAppSDKVersion {
     V1_8,
     V2_0,
     V2_1,
+    V2_2,
 }
 
 impl WindowsAppSDKVersion {
@@ -71,6 +76,7 @@ impl WindowsAppSDKVersion {
             WindowsAppSDKVersion::V1_8 => WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V1_8,
             WindowsAppSDKVersion::V2_0 => WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V2_0,
             WindowsAppSDKVersion::V2_1 => WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V2_1,
+            WindowsAppSDKVersion::V2_2 => WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V2_2,
         }
     }
 
@@ -94,6 +100,9 @@ impl WindowsAppSDKVersion {
             WindowsAppSDKVersion::V2_1 => {
                 WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME_V2_1
             }
+            WindowsAppSDKVersion::V2_2 => {
+                WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME_V2_2
+            }
         }
     }
 }
@@ -106,7 +115,7 @@ pub struct PackageDependency {
 
 impl PackageDependency {
     pub fn initialize() -> Result<Self> {
-        Self::initialize_version(WindowsAppSDKVersion::V2_1)
+        Self::initialize_version(WindowsAppSDKVersion::V2_2)
     }
 
     pub fn initialize_version(version: WindowsAppSDKVersion) -> Result<Self> {

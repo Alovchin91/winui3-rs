@@ -1826,6 +1826,141 @@ pub struct IXamlBindingHelperStatics_Vtbl {
     ) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
+    IXamlBindingHelperStatics2,
+    IXamlBindingHelperStatics2_Vtbl,
+    0xc02650dc_4da5_5ddf_aae2_8445e987f4c4
+);
+impl windows_core::RuntimeType for IXamlBindingHelperStatics2 {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for IXamlBindingHelperStatics2 {
+    const NAME: &'static str = "Microsoft.UI.Xaml.Markup.IXamlBindingHelperStatics2";
+}
+pub trait IXamlBindingHelperStatics2_Impl: windows_core::IUnknownImpl {
+    fn SetPropertyFromThickness(
+        &self,
+        dependencyObject: windows_core::Ref<windows_core::IInspectable>,
+        propertyToSet: windows_core::Ref<super::DependencyProperty>,
+        value: &super::Thickness,
+    ) -> windows_core::Result<()>;
+    fn SetPropertyFromCornerRadius(
+        &self,
+        dependencyObject: windows_core::Ref<windows_core::IInspectable>,
+        propertyToSet: windows_core::Ref<super::DependencyProperty>,
+        value: &super::CornerRadius,
+    ) -> windows_core::Result<()>;
+    fn SetPropertyFromColor(
+        &self,
+        dependencyObject: windows_core::Ref<windows_core::IInspectable>,
+        propertyToSet: windows_core::Ref<super::DependencyProperty>,
+        value: &windows::UI::Color,
+    ) -> windows_core::Result<()>;
+}
+impl IXamlBindingHelperStatics2_Vtbl {
+    pub const fn new<Identity: IXamlBindingHelperStatics2_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn SetPropertyFromThickness<
+            Identity: IXamlBindingHelperStatics2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            dependencyobject: *mut core::ffi::c_void,
+            propertytoset: *mut core::ffi::c_void,
+            value: super::Thickness,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IXamlBindingHelperStatics2_Impl::SetPropertyFromThickness(
+                    this,
+                    core::mem::transmute_copy(&dependencyobject),
+                    core::mem::transmute_copy(&propertytoset),
+                    core::mem::transmute(&value),
+                )
+                .into()
+            }
+        }
+        unsafe extern "system" fn SetPropertyFromCornerRadius<
+            Identity: IXamlBindingHelperStatics2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            dependencyobject: *mut core::ffi::c_void,
+            propertytoset: *mut core::ffi::c_void,
+            value: super::CornerRadius,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IXamlBindingHelperStatics2_Impl::SetPropertyFromCornerRadius(
+                    this,
+                    core::mem::transmute_copy(&dependencyobject),
+                    core::mem::transmute_copy(&propertytoset),
+                    core::mem::transmute(&value),
+                )
+                .into()
+            }
+        }
+        unsafe extern "system" fn SetPropertyFromColor<
+            Identity: IXamlBindingHelperStatics2_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            dependencyobject: *mut core::ffi::c_void,
+            propertytoset: *mut core::ffi::c_void,
+            value: windows::UI::Color,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                IXamlBindingHelperStatics2_Impl::SetPropertyFromColor(
+                    this,
+                    core::mem::transmute_copy(&dependencyobject),
+                    core::mem::transmute_copy(&propertytoset),
+                    core::mem::transmute(&value),
+                )
+                .into()
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<
+                Identity,
+                IXamlBindingHelperStatics2,
+                OFFSET,
+            >(),
+            SetPropertyFromThickness: SetPropertyFromThickness::<Identity, OFFSET>,
+            SetPropertyFromCornerRadius: SetPropertyFromCornerRadius::<Identity, OFFSET>,
+            SetPropertyFromColor: SetPropertyFromColor::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<IXamlBindingHelperStatics2 as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct IXamlBindingHelperStatics2_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub SetPropertyFromThickness: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        super::Thickness,
+    ) -> windows_core::HRESULT,
+    pub SetPropertyFromCornerRadius: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        super::CornerRadius,
+    ) -> windows_core::HRESULT,
+    pub SetPropertyFromColor: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        windows::UI::Color,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
     IXamlCondition,
     IXamlCondition_Vtbl,
     0x9124118d_cdfa_545f_8c12_4cf7bcc5fffa
@@ -4014,6 +4149,63 @@ impl XamlBindingHelper {
             .ok()
         })
     }
+    pub fn SetPropertyFromThickness<P0, P1>(
+        dependencyobject: P0,
+        propertytoset: P1,
+        value: super::Thickness,
+    ) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<windows_core::IInspectable>,
+        P1: windows_core::Param<super::DependencyProperty>,
+    {
+        Self::IXamlBindingHelperStatics2(|this| unsafe {
+            (windows_core::Interface::vtable(this).SetPropertyFromThickness)(
+                windows_core::Interface::as_raw(this),
+                dependencyobject.param().abi(),
+                propertytoset.param().abi(),
+                value,
+            )
+            .ok()
+        })
+    }
+    pub fn SetPropertyFromCornerRadius<P0, P1>(
+        dependencyobject: P0,
+        propertytoset: P1,
+        value: super::CornerRadius,
+    ) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<windows_core::IInspectable>,
+        P1: windows_core::Param<super::DependencyProperty>,
+    {
+        Self::IXamlBindingHelperStatics2(|this| unsafe {
+            (windows_core::Interface::vtable(this).SetPropertyFromCornerRadius)(
+                windows_core::Interface::as_raw(this),
+                dependencyobject.param().abi(),
+                propertytoset.param().abi(),
+                value,
+            )
+            .ok()
+        })
+    }
+    pub fn SetPropertyFromColor<P0, P1>(
+        dependencyobject: P0,
+        propertytoset: P1,
+        value: windows::UI::Color,
+    ) -> windows_core::Result<()>
+    where
+        P0: windows_core::Param<windows_core::IInspectable>,
+        P1: windows_core::Param<super::DependencyProperty>,
+    {
+        Self::IXamlBindingHelperStatics2(|this| unsafe {
+            (windows_core::Interface::vtable(this).SetPropertyFromColor)(
+                windows_core::Interface::as_raw(this),
+                dependencyobject.param().abi(),
+                propertytoset.param().abi(),
+                value,
+            )
+            .ok()
+        })
+    }
     fn IXamlBindingHelperStatics<
         R,
         F: FnOnce(&IXamlBindingHelperStatics) -> windows_core::Result<R>,
@@ -4023,6 +4215,18 @@ impl XamlBindingHelper {
         static SHARED: windows_core::imp::FactoryCache<
             XamlBindingHelper,
             IXamlBindingHelperStatics,
+        > = windows_core::imp::FactoryCache::new();
+        SHARED.call(callback)
+    }
+    fn IXamlBindingHelperStatics2<
+        R,
+        F: FnOnce(&IXamlBindingHelperStatics2) -> windows_core::Result<R>,
+    >(
+        callback: F,
+    ) -> windows_core::Result<R> {
+        static SHARED: windows_core::imp::FactoryCache<
+            XamlBindingHelper,
+            IXamlBindingHelperStatics2,
         > = windows_core::imp::FactoryCache::new();
         SHARED.call(callback)
     }
