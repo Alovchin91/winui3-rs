@@ -43,6 +43,8 @@ Run checks from the workspace root. Plain `cargo build` uses the empty default f
 | `src/xaml_page.rs`, `src/xaml_types.rs` | `cargo build -p page-navigation` checks the navigation integration. |
 | `src/lib.rs` feature gates | `cargo check -p winui3 --no-default-features`, plus `./bindgen/check-features.ps1 -Feature Foundation,XamlApp` with the feature list adjusted to the gates you changed. |
 
+End-to-end composition tests in `winui3/tests/` run the real WinUI runtime and check that it calls the Rust overrides with the composed `Application` / `Page`. They need the Windows App SDK runtime and an interactive session, so they are ignored by default; run each binary separately: `cargo test -p winui3 --no-default-features --features XamlApp --test application -- --ignored` and `cargo test -p winui3 --no-default-features --features XamlApp_Navigation --test page -- --ignored`.
+
 For regeneration or generated feature-table changes, use the skill's full validation sequence, including every feature in isolation. Compile checks do not establish runtime behavior; for UI or lifecycle changes, also run the affected sample and report what you exercised.
 
 ## Feature-flag model

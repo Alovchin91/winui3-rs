@@ -249,6 +249,24 @@ interface.
 state after its caller returns. Owned state is supported; borrowing
 non-static stack data into the native object's lifetime is rejected.
 
+`tests/application.rs` and `tests/page.rs` are end-to-end tests that run the
+real runtime, one `Application` per process. The application test checks
+that `OnLaunched` receives the `Application::Current()` singleton. The page
+test navigates a `Frame` to a composed page twice and checks that the runtime
+resolves the type through the app's metadata provider, activates the page
+through `XamlCustomType`, and raises all three navigation overrides with the
+composed page. Type resolution is checked independently of its lookup count;
+page identities and navigation callback order remain strict. A standalone
+native page also checks lifetime before application shutdown: its overrides
+interface keeps it alive, then releasing that interface expires the weak
+reference and drops the Rust callback state exactly once.
+
+Both tests exit the application from `OnLaunched` so `Start` returns, and
+keep only plain data past that point. The UI thread then parks until process
+exit to avoid a known STA teardown crash after `Frame` navigation. The tests
+are ignored by default because they need the Windows App SDK runtime and an
+interactive session; no fake stands in for WinUI.
+
 ### Why `cargo run -p bindgen` patches factory visibility
 
 `xaml_app.rs` calls `Application::IApplicationFactory(...)`; `xaml_page.rs`

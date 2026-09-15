@@ -20,6 +20,15 @@ features = [
     "Win32_System_WinRT",
 ]
 
+# End-to-end composition tests; each runs the real WinUI runtime in its own process.
+[[test]]
+name = "application"
+required-features = ["XamlApp"]
+
+[[test]]
+name = "page"
+required-features = ["XamlApp_Navigation"]
+
 [features]
 default = []
 Foundation = ["windows/Foundation"]
