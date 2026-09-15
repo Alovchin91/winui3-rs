@@ -4,6 +4,20 @@ The `bindgen` crate is an internal tool that regenerates the WinRT bindings
 shipped in the `winui3` crate. It wraps `windows-bindgen` and post-processes
 the output.
 
+## Current metadata version
+
+Bindings are generated from stable Windows App SDK **2.4.0** with published
+`windows-bindgen` **0.63.0**. The meta-package resolves Foundation 2.3.9,
+InteractiveExperiences 2.1.6, WinUI 2.3.6, Runtime 2.4.0, and WebView2
+1.0.3719.77. These component versions come from the package nuspecs rather
+than matching the SDK version number.
+
+The runtime package's `WindowsAppSDK-VersionInfo.json` specifies minimum
+version `0x0002000400000000` (2.4.0.0) and framework package family
+`Microsoft.WindowsAppRuntime.2_8wekyb3d8bbwe`. `PackageDependency::initialize()`
+selects `WindowsAppSDKVersion::V2_4`; `initialize_version()` accepts the other
+variants.
+
 ## When to re-run
 
 Re-run `cargo run -p bindgen` when:
@@ -37,7 +51,7 @@ staging — give it a WinAppSDK `major.minor` (or an exact meta-package
 version) and it does the rest:
 
 ```powershell
-./bindgen/fetch-winmd.ps1 -Version 2.1
+./bindgen/fetch-winmd.ps1 -Version 2.4.0
 ```
 
 The resolution rules it implements:
@@ -100,6 +114,34 @@ and regenerate before validation.
 After regenerating, inspect the diff. If `cargo check` reveals unresolved
 types in the generated code, add the missing dep to `FEATURE_PATCHES` in
 `src/main.rs`.
+
+## Migration to windows-bindgen 0.100 is blocked
+
+The workspace uses published `windows-bindgen` 0.63 with the external
+`windows`/`windows-core` 0.62 dependencies. The 0.100 release adds native
+composition helpers, but its published generator cannot preserve this
+crate's external Windows type identity and per-item Cargo feature behavior
+through the package workflow.
+
+Unlike 0.63, published 0.100 exposes no custom `--reference` option. Including
+Windows dependency types in a Microsoft package triggers a mixed-root panic
+while emitting the feature manifest. This also happens for a ColorHelper-only
+projection with no XAML types. Excluding Windows loses Microsoft APIs.
+Separate flat generation of `Windows.UI.Xaml.Interop` (in this crate or a
+helper crate) can provide its types, but does not fix that package limitation.
+
+Nested output with explicit dependency filters and Windows namespace
+reexports preserves the rich source surface and external type identity, but
+emits no item-level feature guards. Namespace-only packaging would widen 39
+features (for example, `UI_Xaml_Navigation` would select 28 Microsoft
+namespaces instead of 4). This crate keeps its per-namespace feature
+granularity and does not vendor a patched generator or use output from a
+panicking run.
+
+Revisit after upstream supplies the package/reference support and correct
+composition-helper cfgs. See [release 74](https://github.com/microsoft/windows-rs/releases/tag/74)
+for the composition implementation that the handwritten adapters in this
+crate use as their reference.
 
 ## Known gap: breaking changes between WinAppSDK versions
 

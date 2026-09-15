@@ -1,3 +1,5 @@
+use core::cell::UnsafeCell;
+
 use windows::Win32::Foundation::{E_NOINTERFACE, E_POINTER};
 use windows_core::{
     Array, AsImpl, ComObject, ComObjectInner, ComObjectInterface, IInspectable, IInspectable_Vtbl,
@@ -29,28 +31,55 @@ where
 }
 
 impl<T: XamlAppOverrides> XamlApp<T> {
-    pub fn compose(inner: T) -> Result<Application> {
+    /// Composes a native Application that may retain the callback state.
+    pub fn compose(inner: T) -> Result<Application>
+    where
+        T: 'static,
+    {
         let app = Self {
             inner,
             provider: XamlControlsXamlMetaDataProvider::new()?,
         };
-        Application::IApplicationFactory(|this| unsafe {
-            let outer: IInspectable = app.into();
-            let outer__ = Interface::as_raw(&outer);
-            // IInspectable Vtable is the identity, and it's the first field
-            // of the _Impl struct, so it can be directly cast it to _Impl.
-            // See QueryInterface.
-            let r#impl = outer__ as *mut XamlApp_Impl<T>;
-            let base__ = &mut (*r#impl).base;
-            let mut result__ = core::mem::zeroed();
-            (Interface::vtable(this).CreateInstance)(
-                Interface::as_raw(this),
-                outer__,
-                base__ as *mut _ as _,
-                &mut result__,
-            )
-            .and_then(|| windows_core::Type::from_abi(result__))
+        Application::IApplicationFactory(|this| {
+            // SAFETY: compose_with supplies live, initially empty owned out slots
+            // and keeps the controlling outer alive throughout CreateInstance.
+            app.compose_with(|outer, base, result| unsafe {
+                (Interface::vtable(this).CreateInstance)(
+                    Interface::as_raw(this),
+                    Interface::as_raw(outer),
+                    base.cast(),
+                    core::ptr::from_mut(result).cast(),
+                )
+                .ok()
+            })
         })
+    }
+
+    fn compose_with(
+        self,
+        factory: impl FnOnce(
+            &IInspectable,
+            *mut Option<IInspectable>,
+            &mut Option<Application>,
+        ) -> Result<()>,
+    ) -> Result<Application>
+    where
+        T: 'static,
+    {
+        let object = ComObject::new(self);
+        // The factory writes the base once, on this thread, through this raw
+        // pointer while the outer is shared with native code; reentrant QI may
+        // observe it before or after that write. No exclusive borrow spans the
+        // call, and the base is immutable once the factory returns.
+        let base = object.base.get();
+        // Consuming the ComObject keeps the allocation alive through `outer`.
+        let outer: IInspectable = object.into_interface();
+        // Declared after outer so an owned result is released first on failure.
+        // The stored base is non-delegating; only the returned class delegates
+        // its lifetime to the controlling outer, avoiding a reference cycle.
+        let mut result = None;
+        factory(&outer, base, &mut result)?;
+        result.ok_or_else(windows_core::Error::empty)
     }
 }
 
@@ -103,9 +132,9 @@ impl<T: XamlAppOverrides> XamlApp<T> {
             identity: &XamlApp_Impl::<T>::VTABLE_IDENTITY,
             iapplicationoverrides: &XamlApp_Impl::<T>::VTABLE_IAPPLICATIONOVERRIDES,
             ixamlmetadataprovider: &XamlApp_Impl::<T>::VTABLE_IXAMLMETADATAPROVIDER,
-            count: ::windows_core::imp::WeakRefCount::new(),
+            base: UnsafeCell::new(None),
             this: self,
-            base: Option::None,
+            count: ::windows_core::imp::WeakRefCount::new(),
         }
     }
 }
@@ -116,8 +145,10 @@ pub struct XamlApp_Impl<T: XamlAppOverrides> {
     identity: &'static IInspectable_Vtbl,
     iapplicationoverrides: &'static <IApplicationOverrides as Interface>::Vtable,
     ixamlmetadataprovider: &'static <IXamlMetadataProvider as Interface>::Vtable,
+    // Declared before `this` so the final release drops the non-delegating
+    // inner before the Rust callback state, matching the release-74 layout.
+    base: UnsafeCell<Option<IInspectable>>,
     this: XamlApp<T>,
-    base: Option<IInspectable>,
     count: ::windows_core::imp::WeakRefCount,
 }
 
@@ -226,7 +257,10 @@ impl<T: XamlAppOverrides> IUnknownImpl for XamlApp_Impl<T> {
                     *interface = tear_off_ptr;
                     return HRESULT(0);
                 }
-                if let Some(base) = &self.base {
+                // SAFETY: composition initializes this slot once on the calling
+                // thread; it remains immutable afterward. UnsafeCell permits
+                // the native write while this outer is queried reentrantly.
+                if let Some(base) = &*self.base.get() {
                     return Interface::query(base, &iid, interface);
                 }
                 *interface = core::ptr::null_mut();

@@ -29,6 +29,16 @@ generated in a separate pass due to a bindgen bug. Worth re-checking on each
 `windows-bindgen` version bump (currently `0.63.0`) to see if the workaround
 can collapse to one pass.
 
+## Unblock native composition generation without vendoring
+
+Migration to published `windows-bindgen` 0.100 is blocked by its missing
+external namespace reference API and mixed-root package writer. A separate
+flat interop helper does not resolve the latter; ordinary Windows signature
+types introduce a second root. Keep 0.63 until the full public surface,
+external `windows` type identity, and per-item Cargo feature behavior can all
+be preserved. Recheck composition-helper cfgs with every feature in isolation.
+See `ARCHITECTURE.md` for the limitations and alternatives.
+
 ## WebView2 escape hatch
 
 `etc/winui3.txt:52-56` excludes all `Microsoft.Web.WebView2` and `*WebView2*`
