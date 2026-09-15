@@ -19,8 +19,8 @@ Three gaps the generated bindings don't close:
 2. **Off-the-grid APIs.** Windows entry points that aren't declared in any
    public WinMD (HWND ↔ `WindowId`, `IWindowNative`).
 3. **Composition.** Letting Rust code extend composable WinRT runtime classes
-   (`Application`, `Page`). `windows-core`'s `#[implement]` macro doesn't yet
-   emit the composition dance.
+   (`Application`, `Page`). The `windows-core` 0.62 `#[implement]` macro does
+   not emit the composition dance.
 
 Plus a bit of glue: boxed value types (`Reference<T>`), custom XAML metadata
 (`XamlCustomType`), apartment init.
@@ -69,6 +69,10 @@ This bootstrap is required for **unpackaged** apps. WinUI 3 lives in a
 framework MSIX package that isn't in an unpackaged process' package graph by
 default; without the bootstrap, WinRT activation of `Microsoft.UI.*` types
 fails.
+
+The generated projection and default bootstrap target use stable WinAppSDK 2.4.0.
+`initialize_version()` accepts explicit V1_5 through V1_8 and V2_0 through V2_4
+selections.
 
 ### Adding a new WinAppSDK version
 
@@ -166,7 +170,9 @@ obtains an inner `IInspectable` via `IApplicationFactory::CreateInstance` /
 
 `Application` and `Page` are **composable (unsealed)** WinRT runtime classes —
 they're designed to be extended this way. The `#[implement]` macro in
-`windows-core` doesn't yet emit the composition dance, so we do it by hand.
+`windows-core` 0.62 does not emit the composition handoff, so we do it by
+hand. windows-rs release 74 has native composition support, but the generator
+migration is blocked; see `../bindgen/ARCHITECTURE.md`.
 
 ### Why `Application` specifically needs factory composition
 
@@ -192,12 +198,56 @@ a cleaner alternative — but today it mirrors the `Application` approach.
 
 ### Tracking upstream
 
-[windows-rs#3767 — "Consider implementing limited support for COM aggregation"](https://github.com/microsoft/windows-rs/issues/3767).
-Filed against `winui3-rs`. Not a priority for the `windows-rs` maintainers.
+[windows-rs#3767 — "Consider implementing limited support for COM aggregation"](https://github.com/microsoft/windows-rs/issues/3767)
+is addressed by the composition support in
+[release 74](https://github.com/microsoft/windows-rs/releases/tag/74). Its
+factory handoff is the reference for these handwritten adapters. The
+migration blocker is generator compatibility; see
+`../bindgen/ARCHITECTURE.md`.
 
-**Don't** refactor / deduplicate / reshape the hand-expanded code in
-`xaml_app.rs` or `xaml_page.rs`. Revisit when `windows-rs#3767` is resolved —
-at that point, both files should collapse to small users of the new macro.
+The handwritten adapters and the release-74 macro share one ownership model:
+keep the controlling Rust outer alive across `CreateInstance`, let the
+factory write its nondelegating inner into the outer's base slot, and return
+the delegating `Application` or `Page`. Preserve that distinction; storing
+another strong delegating interface inside the outer would create a reference
+cycle.
+
+The release-74 macro places its base before the identity pointer and depends
+on `windows-core` 0.100 internals. Those field offsets and helper types do not
+apply to the 0.62 expansion; keep its vtables, interface offsets,
+`QueryInterface` precedence, and reference counting. Replacing these adapters
+with the upstream macro becomes an option once the published generator
+preserves this crate's external Windows types and feature behavior.
+
+### Handwritten factory handoff
+
+The private `compose_with` functions isolate the native factory call from
+allocation and output ownership. They follow the release-74 protocol on top
+of the 0.62 runtime and vtable layout. The base slot pointer comes from
+`ComObject`'s deref to the implementation struct, so the handoff needs no
+pointer arithmetic over the vtable layout; the only `unsafe` is the
+`CreateInstance` call itself.
+
+The base slot is an `UnsafeCell<Option<IInspectable>>` declared after the
+vtable pointers and before the Rust callback state. The identity pointer is
+first, so interface offsets follow the vtable pointers, and the final release
+drops the non-delegating inner before user state, matching the release-74
+teardown order. The synchronous factory writes the slot once through a raw
+out pointer; reentrant `QueryInterface` calls can observe it before or after
+that write without an exclusive Rust reference spanning the native call.
+After composition, the slot is read-only. This adds no synchronization or
+thread-safety guarantee; WinUI construction happens on its UI apartment.
+
+The returned class uses an owned `Option<Application>` or `Option<Page>`
+output slot, passed to the factory closure as `&mut`. A valid reference
+written before a factory error is released before the local outer owner,
+including its stored base, is dropped. Success with a null result is reported
+as `Error::empty()`, the same error `Type::from_abi` produces for a null
+interface.
+
+`compose` requires `T: 'static` because native code may retain the callback
+state after its caller returns. Owned state is supported; borrowing
+non-static stack data into the native object's lifetime is rejected.
 
 ### Why `cargo run -p bindgen` patches factory visibility
 
