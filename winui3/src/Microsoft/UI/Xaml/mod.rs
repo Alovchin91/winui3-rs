@@ -32,6 +32,8 @@ pub mod Navigation;
 pub mod Printing;
 #[cfg(feature = "UI_Xaml_Resources")]
 pub mod Resources;
+#[cfg(feature = "UI_Xaml_Settings")]
+pub mod Settings;
 #[cfg(feature = "UI_Xaml_Shapes")]
 pub mod Shapes;
 #[cfg(feature = "UI_Xaml_XamlTypeInfo")]

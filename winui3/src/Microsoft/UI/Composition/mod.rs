@@ -10185,6 +10185,82 @@ impl windows_core::RuntimeName for CompositionEllipseGeometry {
 }
 unsafe impl Send for CompositionEllipseGeometry {}
 unsafe impl Sync for CompositionEllipseGeometry {}
+pub struct CompositionEngine;
+impl CompositionEngine {
+    pub fn TrySetProcessEngine(requested: CompositionEngineType) -> windows_core::Result<bool> {
+        Self::ICompositionEngineStatics(|this| unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).TrySetProcessEngine)(
+                windows_core::Interface::as_raw(this),
+                requested,
+                &mut result__,
+            )
+            .map(|| result__)
+        })
+    }
+    pub fn GetForSystemEngine<P0>(
+        compositionobject: P0,
+    ) -> windows_core::Result<windows_core::IInspectable>
+    where
+        P0: windows_core::Param<windows_core::IInspectable>,
+    {
+        Self::ICompositionEngineStatics(|this| unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetForSystemEngine)(
+                windows_core::Interface::as_raw(this),
+                compositionobject.param().abi(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        })
+    }
+    pub fn GetForInProcessEngine<P0>(
+        compositionobject: P0,
+    ) -> windows_core::Result<windows_core::IInspectable>
+    where
+        P0: windows_core::Param<windows_core::IInspectable>,
+    {
+        Self::ICompositionEngineStatics(|this| unsafe {
+            let mut result__ = core::mem::zeroed();
+            (windows_core::Interface::vtable(this).GetForInProcessEngine)(
+                windows_core::Interface::as_raw(this),
+                compositionobject.param().abi(),
+                &mut result__,
+            )
+            .and_then(|| windows_core::Type::from_abi(result__))
+        })
+    }
+    fn ICompositionEngineStatics<
+        R,
+        F: FnOnce(&ICompositionEngineStatics) -> windows_core::Result<R>,
+    >(
+        callback: F,
+    ) -> windows_core::Result<R> {
+        static SHARED: windows_core::imp::FactoryCache<
+            CompositionEngine,
+            ICompositionEngineStatics,
+        > = windows_core::imp::FactoryCache::new();
+        SHARED.call(callback)
+    }
+}
+impl windows_core::RuntimeName for CompositionEngine {
+    const NAME: &'static str = "Microsoft.UI.Composition.CompositionEngine";
+}
+#[repr(transparent)]
+#[derive(Clone, Copy, Debug, Default, Eq, PartialEq)]
+pub struct CompositionEngineType(pub i32);
+impl CompositionEngineType {
+    pub const System: Self = Self(0i32);
+    pub const InProcess: Self = Self(1i32);
+}
+impl windows_core::TypeKind for CompositionEngineType {
+    type TypeKind = windows_core::CopyType;
+}
+impl windows_core::RuntimeType for CompositionEngineType {
+    const SIGNATURE: windows_core::imp::ConstBuffer = windows_core::imp::ConstBuffer::from_slice(
+        b"enum(Microsoft.UI.Composition.CompositionEngineType;i4)",
+    );
+}
 #[repr(transparent)]
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct CompositionGeometricClip(windows_core::IUnknown);
@@ -30079,6 +30155,134 @@ pub struct ICompositionEllipseGeometry_Vtbl {
     pub SetRadius: unsafe extern "system" fn(
         *mut core::ffi::c_void,
         windows_numerics::Vector2,
+    ) -> windows_core::HRESULT,
+}
+windows_core::imp::define_interface!(
+    ICompositionEngineStatics,
+    ICompositionEngineStatics_Vtbl,
+    0x6ccf1385_c6c7_54d8_aca1_e7d66cfee704
+);
+impl windows_core::RuntimeType for ICompositionEngineStatics {
+    const SIGNATURE: windows_core::imp::ConstBuffer =
+        windows_core::imp::ConstBuffer::for_interface::<Self>();
+}
+impl windows_core::RuntimeName for ICompositionEngineStatics {
+    const NAME: &'static str = "Microsoft.UI.Composition.ICompositionEngineStatics";
+}
+pub trait ICompositionEngineStatics_Impl: windows_core::IUnknownImpl {
+    fn TrySetProcessEngine(&self, requested: CompositionEngineType) -> windows_core::Result<bool>;
+    fn GetForSystemEngine(
+        &self,
+        compositionObject: windows_core::Ref<windows_core::IInspectable>,
+    ) -> windows_core::Result<windows_core::IInspectable>;
+    fn GetForInProcessEngine(
+        &self,
+        compositionObject: windows_core::Ref<windows_core::IInspectable>,
+    ) -> windows_core::Result<windows_core::IInspectable>;
+}
+impl ICompositionEngineStatics_Vtbl {
+    pub const fn new<Identity: ICompositionEngineStatics_Impl, const OFFSET: isize>() -> Self {
+        unsafe extern "system" fn TrySetProcessEngine<
+            Identity: ICompositionEngineStatics_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            requested: CompositionEngineType,
+            result__: *mut bool,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match ICompositionEngineStatics_Impl::TrySetProcessEngine(this, requested) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn GetForSystemEngine<
+            Identity: ICompositionEngineStatics_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            compositionobject: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match ICompositionEngineStatics_Impl::GetForSystemEngine(
+                    this,
+                    core::mem::transmute_copy(&compositionobject),
+                ) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        unsafe extern "system" fn GetForInProcessEngine<
+            Identity: ICompositionEngineStatics_Impl,
+            const OFFSET: isize,
+        >(
+            this: *mut core::ffi::c_void,
+            compositionobject: *mut core::ffi::c_void,
+            result__: *mut *mut core::ffi::c_void,
+        ) -> windows_core::HRESULT {
+            unsafe {
+                let this: &Identity =
+                    &*((this as *const *const ()).offset(OFFSET) as *const Identity);
+                match ICompositionEngineStatics_Impl::GetForInProcessEngine(
+                    this,
+                    core::mem::transmute_copy(&compositionobject),
+                ) {
+                    Ok(ok__) => {
+                        result__.write(core::mem::transmute_copy(&ok__));
+                        core::mem::forget(ok__);
+                        windows_core::HRESULT(0)
+                    }
+                    Err(err) => err.into(),
+                }
+            }
+        }
+        Self {
+            base__: windows_core::IInspectable_Vtbl::new::<
+                Identity,
+                ICompositionEngineStatics,
+                OFFSET,
+            >(),
+            TrySetProcessEngine: TrySetProcessEngine::<Identity, OFFSET>,
+            GetForSystemEngine: GetForSystemEngine::<Identity, OFFSET>,
+            GetForInProcessEngine: GetForInProcessEngine::<Identity, OFFSET>,
+        }
+    }
+    pub fn matches(iid: &windows_core::GUID) -> bool {
+        iid == &<ICompositionEngineStatics as windows_core::Interface>::IID
+    }
+}
+#[repr(C)]
+#[doc(hidden)]
+pub struct ICompositionEngineStatics_Vtbl {
+    pub base__: windows_core::IInspectable_Vtbl,
+    pub TrySetProcessEngine: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        CompositionEngineType,
+        *mut bool,
+    ) -> windows_core::HRESULT,
+    pub GetForSystemEngine: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
+    ) -> windows_core::HRESULT,
+    pub GetForInProcessEngine: unsafe extern "system" fn(
+        *mut core::ffi::c_void,
+        *mut core::ffi::c_void,
+        *mut *mut core::ffi::c_void,
     ) -> windows_core::HRESULT,
 }
 windows_core::imp::define_interface!(
