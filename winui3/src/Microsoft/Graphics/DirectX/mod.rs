@@ -54,6 +54,9 @@ impl DirectXColorSpace {
     pub const YccStudioG24LeftP709: Self = Self(22i32);
     pub const YccStudioG24LeftP2020: Self = Self(23i32);
     pub const YccStudioG24TopLeftP2020: Self = Self(24i32);
+    pub const RgbFullG10NoneP2020: Self = Self(25i32);
+    pub const RgbFullG22ExtNoneP709: Self = Self(26i32);
+    pub const RgbFullG22NoneP3: Self = Self(27i32);
 }
 impl windows_core::TypeKind for DirectXColorSpace {
     type TypeKind = windows_core::CopyType;
