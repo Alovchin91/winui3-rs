@@ -1,11 +1,11 @@
 //! Runs one end-to-end composition test as a WinUI application on a dedicated
 //! thread.
-//!
-//! The UI thread parks until process exit after `Application::Start` returns.
-//! This avoids a known STA teardown crash when the thread exits after `Frame`
-//! navigation.
 
-use std::{sync::mpsc, thread, time::Duration};
+use std::{
+    sync::mpsc::{self, RecvTimeoutError},
+    thread,
+    time::Duration,
+};
 
 use windows_core::Result;
 use winui3::{
@@ -22,17 +22,16 @@ pub fn run_app<T: Send + 'static>(
     observe: impl FnOnce() -> T + Send + 'static,
 ) -> Result<T> {
     let (sender, receiver) = mpsc::channel();
-    thread::spawn(move || {
+    let ui_thread = thread::spawn(move || {
         let started = start(compose);
         let observed = observe();
-        let _ = sender.send(started.map(|()| observed));
-        loop {
-            thread::park();
-        }
+        let _ = sender.send(());
+        started.map(|()| observed)
     });
-    receiver
-        .recv_timeout(Duration::from_secs(60))
-        .expect("the application did not exit within 60 seconds")
+    if receiver.recv_timeout(Duration::from_secs(60)) == Err(RecvTimeoutError::Timeout) {
+        panic!("the application did not exit within 60 seconds");
+    }
+    ui_thread.join().expect("the UI thread panicked")
 }
 
 fn start(compose: impl Fn() -> Result<Application> + Send + 'static) -> Result<()> {
