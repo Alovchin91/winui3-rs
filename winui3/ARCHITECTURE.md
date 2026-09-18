@@ -70,8 +70,8 @@ framework MSIX package that isn't in an unpackaged process' package graph by
 default; without the bootstrap, WinRT activation of `Microsoft.UI.*` types
 fails.
 
-The generated projection and default bootstrap target use stable WinAppSDK 2.4.0.
-`initialize_version()` accepts explicit V1_5 through V1_8 and V2_0 through V2_4
+The generated projection and default bootstrap target use stable WinAppSDK 2.5.1.
+`initialize_version()` accepts explicit V1_5 through V1_8 and V2_0 through V2_5
 selections.
 
 ### Adding a new WinAppSDK version
