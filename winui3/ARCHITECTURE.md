@@ -262,10 +262,9 @@ interface keeps it alive, then releasing that interface expires the weak
 reference and drops the Rust callback state exactly once.
 
 Both tests exit the application from `OnLaunched` so `Start` returns, and
-keep only plain data past that point. The UI thread then parks until process
-exit to avoid a known STA teardown crash after `Frame` navigation. The tests
-are ignored by default because they need the Windows App SDK runtime and an
-interactive session; no fake stands in for WinUI.
+keep only plain data past that point. The tests are ignored by default
+because they need the Windows App SDK runtime and an interactive session; no
+fake stands in for WinUI.
 
 ### Why `cargo run -p bindgen` patches factory visibility
 
