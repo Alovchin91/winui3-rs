@@ -6,16 +6,16 @@ the output.
 
 ## Current metadata version
 
-Bindings are generated from stable Windows App SDK **2.5.1** with published
-`windows-bindgen` **0.63.0**. The meta-package resolves Foundation 2.3.12,
-InteractiveExperiences 2.1.9, WinUI 2.3.9, Runtime 2.5.1, and WebView2
+Bindings are generated from stable Windows App SDK **2.6.4** with published
+`windows-bindgen` **0.63.0**. The meta-package resolves Foundation 2.6.4,
+InteractiveExperiences 2.6.4, WinUI 2.6.4, Runtime 2.6.4, and WebView2
 1.0.3719.77. These component versions come from the package nuspecs rather
 than matching the SDK version number.
 
 The runtime package's `WindowsAppSDK-VersionInfo.json` specifies minimum
-version `0x0002000500010000` (2.5.1.0) and framework package family
+version `0x0002000600040000` (2.6.4.0) and framework package family
 `Microsoft.WindowsAppRuntime.2_8wekyb3d8bbwe`. `PackageDependency::initialize()`
-selects `WindowsAppSDKVersion::V2_5`; `initialize_version()` accepts the other
+selects `WindowsAppSDKVersion::V2_6`; `initialize_version()` accepts the other
 variants.
 
 ## When to re-run
