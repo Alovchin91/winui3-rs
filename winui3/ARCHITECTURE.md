@@ -85,6 +85,11 @@ with v1.8). The fields we need:
 - `Runtime.Version.HexUInt16` → the `u64` version constant
 - `Runtime.Packages.Framework.PackageFamilyName` → the package family name
 
+Runtime versions change for every release. Package family names identify a
+compatibility boundary instead: WinAppSDK 1.x uses one family per minor release,
+while 2.0 and later use one family per major release. Therefore all V2_*
+variants share `WINDOWSAPPSDK_RUNTIME_PACKAGE_FRAMEWORK_PACKAGEFAMILYNAME_V2`.
+
 To add support for a new major.minor release:
 
 1. Run `./bindgen/fetch-winmd.ps1 -Version <major.minor>` — it resolves the
@@ -92,7 +97,9 @@ To add support for a new major.minor release:
    `WindowsAppSDK-VersionInfo.json`, and prints both values. (Manual
    fallback: download the Runtime `.nupkg` from NuGet, extract it — it's a
    zip — and read the JSON fields above.)
-2. Add two new constants in `src/bootstrap/mod.rs` using those values.
+2. Add a new runtime version constant in `src/bootstrap/mod.rs`. Add a package
+   family constant only for a new major release; otherwise reuse the existing
+   constant for that major.
 3. Extend the `WindowsAppSDKVersion` enum and its two `const fn` accessors.
 4. Bump the default used by `PackageDependency::initialize` unless there's
    an explicit reason not to.
