@@ -16,7 +16,9 @@ The runtime package's `WindowsAppSDK-VersionInfo.json` specifies minimum
 version `0x0002000700000000` (2.7.0.0) and framework package family
 `Microsoft.WindowsAppRuntime.2_8wekyb3d8bbwe`. `PackageDependency::initialize()`
 selects `WindowsAppSDKVersion::V2_7`; `initialize_version()` accepts the other
-variants.
+variants. All supported 2.x releases use that same package family, so the
+per-minor runtime version constants select a minimum version within one shared
+v2 compatibility family.
 
 ## When to re-run
 
