@@ -97,9 +97,10 @@ To add support for a new major.minor release:
    `WindowsAppSDK-VersionInfo.json`, and prints both values. (Manual
    fallback: download the Runtime `.nupkg` from NuGet, extract it — it's a
    zip — and read the JSON fields above.)
-2. Add a new runtime version constant in `src/bootstrap/mod.rs`. Add a package
-   family constant only for a new major release; otherwise reuse the existing
-   constant for that major.
+2. Add a new runtime version constant in `src/bootstrap/mod.rs`. Reuse a
+   package family constant only when its value matches the runtime metadata:
+   2.x and later share a family within each major, while 1.x uses a different
+   family per minor.
 3. Extend the `WindowsAppSDKVersion` enum and its two `const fn` accessors.
 4. Bump the default used by `PackageDependency::initialize` unless there's
    an explicit reason not to.

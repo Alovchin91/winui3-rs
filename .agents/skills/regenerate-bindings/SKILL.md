@@ -78,9 +78,10 @@ validate the result.
 In `winui3/src/bootstrap/mod.rs`, using the values the script printed:
 
 1. Add a runtime version constant following the existing naming pattern (e.g.
-   `WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V2_1`). Reuse the existing package
-   family constant when the major version is already represented; add one
-   only for a new major release.
+   `WINDOWSAPPSDK_RUNTIME_VERSION_UINT64_V2_1`). Reuse a package family
+   constant only when its value matches the runtime metadata. For WinAppSDK 2.x
+   and later, minor releases in the same major share a family; 1.x releases
+   use a different family per minor.
 2. Extend the `WindowsAppSDKVersion` enum and both `const fn` accessors.
 3. Move the default in `PackageDependency::initialize()` to the new version —
    that is the standing policy for version bumps — unless the user explicitly
